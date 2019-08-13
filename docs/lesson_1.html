@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Lesson 1: R Basics</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 54px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h2 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h3 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h4 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h5 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h6 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">About</a>
+</li>
+<li>
+  <a href="introduction.html">Introduction</a>
+</li>
+<li>
+  <a href="lesson_1.html">R Basics</a>
+</li>
+<li>
+  <a href="lesson_2.html">Basic visualizations</a>
+</li>
+<li>
+  <a href="lesson_3.html">EDA</a>
+</li>
+<li>
+  <a href="next_steps.html">Next steps</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Lesson 1: R Basics</h1>
+
+</div>
+
+
+<div id="p3-programming-bootcamp-introduction-to-r" class="section level1">
+<h1>P3 Programming Bootcamp: Introduction to R</h1>
+<div id="lesson-1-r-basics" class="section level2">
+<h2>Lesson 1: R Basics</h2>
+<div id="doing-math" class="section level3">
+<h3>Doing math</h3>
+</div>
+<div id="working-with-data" class="section level3">
+<h3>Working with data</h3>
+<p>Most of the time you’re working with R, you’ll be manipulating some data that was given to you, like expression data, an OTU abundance table, or yield data. The most common form of data is some sort of rectangular container, such as a data frame, a table, a tibble, a matrix, etc. While there are some differences between all of them, they all function similarly. Note that we’re going to begin our investigation using Base R functionality before we move on to using <code>tidyverse</code> (specifically, <code>dplyr</code>) functions.</p>
+<p>We’re going to begin learning how to manipulate data by using <code>mtcars</code>, a dataset that comes packaged with R.</p>
+<p>Let’s learn more about the <code>mtcars</code> dataset:</p>
+<pre class="r"><code>?mtcars</code></pre>
+<p>So there’s information about a few different cars here. Let’s take a look at the data:</p>
+<pre class="r"><code>mtcars</code></pre>
+<pre><code>##                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+## Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+## Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+## Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+## Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+## Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+## Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+## AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+## Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+## Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+## Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+## Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+## Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+## Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
+<p>Most times, datasets are too large to be printed out to the whole screen at once and we just want to get a look at some of the data to get a feel for it. We can use <code>head</code> or <code>tail</code> to look at the first or last few rows of a dataset, respectively:</p>
+<pre class="r"><code>head(mtcars)</code></pre>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+<pre class="r"><code>tail(mtcars)</code></pre>
+<pre><code>##                 mpg cyl  disp  hp drat    wt qsec vs am gear carb
+## Porsche 914-2  26.0   4 120.3  91 4.43 2.140 16.7  0  1    5    2
+## Lotus Europa   30.4   4  95.1 113 3.77 1.513 16.9  1  1    5    2
+## Ford Pantera L 15.8   8 351.0 264 4.22 3.170 14.5  0  1    5    4
+## Ferrari Dino   19.7   6 145.0 175 3.62 2.770 15.5  0  1    5    6
+## Maserati Bora  15.0   8 301.0 335 3.54 3.570 14.6  0  1    5    8
+## Volvo 142E     21.4   4 121.0 109 4.11 2.780 18.6  1  1    4    2</code></pre>
+<p>We can check how many rows and columns there are by doing nrows and nols:</p>
+<pre class="r"><code>nrow(mtcars)</code></pre>
+<pre><code>## [1] 32</code></pre>
+<pre class="r"><code>ncol(mtcars)</code></pre>
+<pre><code>## [1] 11</code></pre>
+<p>Alternatively, we can use <code>dim</code>, which returns the number of rows and columns as a pair of numbers:</p>
+<pre class="r"><code>dim(mtcars)</code></pre>
+<pre><code>## [1] 32 11</code></pre>
+<p>We can use matrix notation (in the linear algebra sense) to access particular elements of the data frame. For instance, if I wanted the value in the 5th column of the first row, I could access it like this:</p>
+<pre class="r"><code>mtcars[1, 5]</code></pre>
+<pre><code>## [1] 3.9</code></pre>
+<p>To access the first fives values in the first row, you can do this:</p>
+<pre class="r"><code>mtcars[1, 1:5]</code></pre>
+<pre><code>##           mpg cyl disp  hp drat
+## Mazda RX4  21   6  160 110  3.9</code></pre>
+<p>And to get the whole row, you can leave the second argument empty:</p>
+<pre class="r"><code>mtcars[1, ]</code></pre>
+<pre><code>##           mpg cyl disp  hp drat   wt  qsec vs am gear carb
+## Mazda RX4  21   6  160 110  3.9 2.62 16.46  0  1    4    4</code></pre>
+<p>Alternatively, you can access columns by their name by putting the name in quotes:</p>
+<pre class="r"><code>mtcars[1, &#39;cyl&#39;]</code></pre>
+<pre><code>## [1] 6</code></pre>
+<p>To access multiple column names in this way, you need to <em>combine</em> (or <em>concatenate</em>) them together with the <code>c</code> function:</p>
+<pre class="r"><code>mtcars[1, c(&#39;mpg&#39;, &#39;cyl&#39;, &#39;disp&#39;)]</code></pre>
+<pre><code>##           mpg cyl disp
+## Mazda RX4  21   6  160</code></pre>
+<p>You can do the same kind of syntax to access the rows of the data frame:</p>
+<pre class="r"><code>mtcars[1:5, 1:5]</code></pre>
+<pre><code>##                    mpg cyl disp  hp drat
+## Mazda RX4         21.0   6  160 110 3.90
+## Mazda RX4 Wag     21.0   6  160 110 3.90
+## Datsun 710        22.8   4  108  93 3.85
+## Hornet 4 Drive    21.4   6  258 110 3.08
+## Hornet Sportabout 18.7   8  360 175 3.15</code></pre>
+<pre class="r"><code>mtcars[&quot;Toyota Corolla&quot;, 1:5]</code></pre>
+<pre><code>##                 mpg cyl disp hp drat
+## Toyota Corolla 33.9   4 71.1 65 4.22</code></pre>
+<p>You can also use negative selection to deselect columns and rows. For instance, if we didn’t care about the <code>qsec</code> column, we can do:</p>
+<div id="exercise-1.1" class="section level4">
+<h4>Exercise 1.1</h4>
+<ul>
+<li>Use <code>rownames</code> to find out all the different cars that are in the dataset. Print out the rows of these cars.</li>
+</ul>
+<pre class="r"><code>mtcars[c(&quot;Toyota Corolla&quot;, &quot;Honda Civic&quot;, &quot;Datsun 710&quot;), ]</code></pre>
+<pre><code>##                 mpg cyl  disp hp drat    wt  qsec vs am gear carb
+## Toyota Corolla 33.9   4  71.1 65 4.22 1.835 19.90  1  1    4    1
+## Honda Civic    30.4   4  75.7 52 4.93 1.615 18.52  1  1    4    2
+## Datsun 710     22.8   4 108.0 93 3.85 2.320 18.61  1  1    4    1</code></pre>
+<ul>
+<li>Print out the number of cylinders, quarter-mile time, number of carburetors, and whether or not the engine is v-shaped for the cars you chose above. See the documentation for <code>?mtcars</code> to figure out which columns have that information.</li>
+</ul>
+<pre class="r"><code>mtcars[c(&quot;Toyota Corolla&quot;, &quot;Honda Civic&quot;, &quot;Datsun 710&quot;), c(&quot;cyl&quot;, &quot;qsec&quot;, &quot;carb&quot;, &quot;vs&quot;)]</code></pre>
+<pre><code>##                cyl  qsec carb vs
+## Toyota Corolla   4 19.90    1  1
+## Honda Civic      4 18.52    2  1
+## Datsun 710       4 18.61    1  1</code></pre>
+</div>
+</div>
+<div id="subsetting-data-based-on-conditions" class="section level3">
+<h3>Subsetting data based on conditions</h3>
+<p>Let’s say we’re interested in cars with 4 cylinders. The following statement returns a vector of <code>TRUE</code> and <code>FALSE</code> indicating the rows in which the statement <code>cylinders equals 4</code> is true.</p>
+<pre class="r"><code>mtcars$cyl == 4</code></pre>
+<pre><code>##  [1] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE
+## [12] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE
+## [23] FALSE FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE  TRUE</code></pre>
+<p>We can then use this vector to subset <code>mtcars</code> so that it shows only the cars with 4 cylinders:</p>
+<pre class="r"><code>mtcars[mtcars$cyl == 4, ]</code></pre>
+<pre><code>##                 mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Datsun 710     22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## Merc 240D      24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## Merc 230       22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## Fiat 128       32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## Honda Civic    30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## Toyota Corona  21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## Fiat X1-9      27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## Porsche 914-2  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## Lotus Europa   30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## Volvo 142E     21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
+<p>similarly, we can use this to look at cars that have more than 4 cylinders:</p>
+<pre class="r"><code>mtcars[mtcars$cyl &gt; 4, ]</code></pre>
+<pre><code>##                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+## Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+## Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+## Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+## Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+## Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+## Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+## AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+## Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+## Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+## Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+## Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+## Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8</code></pre>
+<p>We can use <code>|</code>, the boolean <code>or</code> operator, to look at cars that are 4 or 6 cylinders:</p>
+<pre class="r"><code>mtcars[mtcars$cyl == 4 | mtcars$cyl == 6, ]</code></pre>
+<pre><code>##                 mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710     22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Valiant        18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Merc 240D      24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## Merc 230       22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## Merc 280       19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## Merc 280C      17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## Fiat 128       32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## Honda Civic    30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## Toyota Corona  21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## Fiat X1-9      27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## Porsche 914-2  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## Lotus Europa   30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## Ferrari Dino   19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+## Volvo 142E     21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
+<p>And we can combine it with our indexing from earlier to look at the number of cylinders and quarter-mile speed for each of these cars:</p>
+<pre class="r"><code>mtcars[mtcars$cyl == 4 | mtcars$cyl == 6, c(&quot;cyl&quot;, &quot;qsec&quot;)]</code></pre>
+<pre><code>##                cyl  qsec
+## Mazda RX4        6 16.46
+## Mazda RX4 Wag    6 17.02
+## Datsun 710       4 18.61
+## Hornet 4 Drive   6 19.44
+## Valiant          6 20.22
+## Merc 240D        4 20.00
+## Merc 230         4 22.90
+## Merc 280         6 18.30
+## Merc 280C        6 18.90
+## Fiat 128         4 19.47
+## Honda Civic      4 18.52
+## Toyota Corolla   4 19.90
+## Toyota Corona    4 20.01
+## Fiat X1-9        4 18.90
+## Porsche 914-2    4 16.70
+## Lotus Europa     4 16.90
+## Ferrari Dino     6 15.50
+## Volvo 142E       4 18.60</code></pre>
+<div id="exercise-1.2" class="section level4">
+<h4>Exercise 1.2</h4>
+<ul>
+<li>Use the <code>&amp;</code>, the boolean <code>and</code> operator, to subset <code>mtcars</code> by those cars with 6 cylinders and less than 35 miles per gallon.</li>
+</ul>
+<pre class="r"><code>mtcars[mtcars$cyl == 6 &amp; mtcars$mpg &lt; 35, ]</code></pre>
+<pre><code>##                 mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Valiant        18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Merc 280       19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## Merc 280C      17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## Ferrari Dino   19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6</code></pre>
+<ul>
+<li>Use the <code>arrange</code> function</li>
+</ul>
+<pre class="r"><code>mtcars[mtcars$cyl == 6 &amp; mtcars$mpg &lt; 35, ]</code></pre>
+<pre><code>##                 mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Valiant        18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Merc 280       19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## Merc 280C      17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## Ferrari Dino   19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6</code></pre>
+</div>
+</div>
+<div id="getting-started-with-the-tidyverse" class="section level3">
+<h3>Getting started with the tidyverse</h3>
+<p>Everything we did up to now was done using base R and was useful in helping you get a grasp of how data frames work. However, we’re now going to start using the tidyverse suite of functions from here out. Let’s revisit what we did earlier in the subsetting section.</p>
+<p>Let’s import the tidyverse functions:</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;ggplot2&#39;:
+##   method         from 
+##   [.quosures     rlang
+##   c.quosures     rlang
+##   print.quosures rlang</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;rvest&#39;:
+##   method            from
+##   read_xml.response xml2</code></pre>
+<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.2.1 --</code></pre>
+<pre><code>## v ggplot2 3.1.1       v purrr   0.3.2  
+## v tibble  2.1.1       v dplyr   0.8.0.1
+## v tidyr   0.8.3       v stringr 1.4.0  
+## v readr   1.3.1       v forcats 0.4.0</code></pre>
+<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<p>The first function we will learn about is <code>select</code>. We can use the <code>select</code> function to select variables in a dataframe. For example, to select the number of cylinders and miles per gallon, we can do:</p>
+<pre class="r"><code>select(mtcars, &#39;cyl&#39;, &#39;mpg&#39;)</code></pre>
+<pre><code>##                     cyl  mpg
+## Mazda RX4             6 21.0
+## Mazda RX4 Wag         6 21.0
+## Datsun 710            4 22.8
+## Hornet 4 Drive        6 21.4
+## Hornet Sportabout     8 18.7
+## Valiant               6 18.1
+## Duster 360            8 14.3
+## Merc 240D             4 24.4
+## Merc 230              4 22.8
+## Merc 280              6 19.2
+## Merc 280C             6 17.8
+## Merc 450SE            8 16.4
+## Merc 450SL            8 17.3
+## Merc 450SLC           8 15.2
+## Cadillac Fleetwood    8 10.4
+## Lincoln Continental   8 10.4
+## Chrysler Imperial     8 14.7
+## Fiat 128              4 32.4
+## Honda Civic           4 30.4
+## Toyota Corolla        4 33.9
+## Toyota Corona         4 21.5
+## Dodge Challenger      8 15.5
+## AMC Javelin           8 15.2
+## Camaro Z28            8 13.3
+## Pontiac Firebird      8 19.2
+## Fiat X1-9             4 27.3
+## Porsche 914-2         4 26.0
+## Lotus Europa          4 30.4
+## Ford Pantera L        8 15.8
+## Ferrari Dino          6 19.7
+## Maserati Bora         8 15.0
+## Volvo 142E            4 21.4</code></pre>
+<p>We can also use <code>select</code> to <em>deselect</em> certain variables; when used in this way, <code>select</code> will return all the columns except for the variables indicated. For example, if we aren’t interested in miles per gallon, number of cylinders, or displacement, we can do:</p>
+<pre class="r"><code>select(mtcars, -&quot;mpg&quot;, -&quot;cyl&quot;, -&quot;disp&quot;)</code></pre>
+<pre><code>##                      hp drat    wt  qsec vs am gear carb
+## Mazda RX4           110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag       110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710           93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive      110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout   175 3.15 3.440 17.02  0  0    3    2
+## Valiant             105 2.76 3.460 20.22  1  0    3    1
+## Duster 360          245 3.21 3.570 15.84  0  0    3    4
+## Merc 240D            62 3.69 3.190 20.00  1  0    4    2
+## Merc 230             95 3.92 3.150 22.90  1  0    4    2
+## Merc 280            123 3.92 3.440 18.30  1  0    4    4
+## Merc 280C           123 3.92 3.440 18.90  1  0    4    4
+## Merc 450SE          180 3.07 4.070 17.40  0  0    3    3
+## Merc 450SL          180 3.07 3.730 17.60  0  0    3    3
+## Merc 450SLC         180 3.07 3.780 18.00  0  0    3    3
+## Cadillac Fleetwood  205 2.93 5.250 17.98  0  0    3    4
+## Lincoln Continental 215 3.00 5.424 17.82  0  0    3    4
+## Chrysler Imperial   230 3.23 5.345 17.42  0  0    3    4
+## Fiat 128             66 4.08 2.200 19.47  1  1    4    1
+## Honda Civic          52 4.93 1.615 18.52  1  1    4    2
+## Toyota Corolla       65 4.22 1.835 19.90  1  1    4    1
+## Toyota Corona        97 3.70 2.465 20.01  1  0    3    1
+## Dodge Challenger    150 2.76 3.520 16.87  0  0    3    2
+## AMC Javelin         150 3.15 3.435 17.30  0  0    3    2
+## Camaro Z28          245 3.73 3.840 15.41  0  0    3    4
+## Pontiac Firebird    175 3.08 3.845 17.05  0  0    3    2
+## Fiat X1-9            66 4.08 1.935 18.90  1  1    4    1
+## Porsche 914-2        91 4.43 2.140 16.70  0  1    5    2
+## Lotus Europa        113 3.77 1.513 16.90  1  1    5    2
+## Ford Pantera L      264 4.22 3.170 14.50  0  1    5    4
+## Ferrari Dino        175 3.62 2.770 15.50  0  1    5    6
+## Maserati Bora       335 3.54 3.570 14.60  0  1    5    8
+## Volvo 142E          109 4.11 2.780 18.60  1  1    4    2</code></pre>
+<p>You can even do something like this:</p>
+<pre class="r"><code>select(mtcars, contains(&quot;p&quot;))</code></pre>
+<pre><code>##                      mpg  disp  hp
+## Mazda RX4           21.0 160.0 110
+## Mazda RX4 Wag       21.0 160.0 110
+## Datsun 710          22.8 108.0  93
+## Hornet 4 Drive      21.4 258.0 110
+## Hornet Sportabout   18.7 360.0 175
+## Valiant             18.1 225.0 105
+## Duster 360          14.3 360.0 245
+## Merc 240D           24.4 146.7  62
+## Merc 230            22.8 140.8  95
+## Merc 280            19.2 167.6 123
+## Merc 280C           17.8 167.6 123
+## Merc 450SE          16.4 275.8 180
+## Merc 450SL          17.3 275.8 180
+## Merc 450SLC         15.2 275.8 180
+## Cadillac Fleetwood  10.4 472.0 205
+## Lincoln Continental 10.4 460.0 215
+## Chrysler Imperial   14.7 440.0 230
+## Fiat 128            32.4  78.7  66
+## Honda Civic         30.4  75.7  52
+## Toyota Corolla      33.9  71.1  65
+## Toyota Corona       21.5 120.1  97
+## Dodge Challenger    15.5 318.0 150
+## AMC Javelin         15.2 304.0 150
+## Camaro Z28          13.3 350.0 245
+## Pontiac Firebird    19.2 400.0 175
+## Fiat X1-9           27.3  79.0  66
+## Porsche 914-2       26.0 120.3  91
+## Lotus Europa        30.4  95.1 113
+## Ford Pantera L      15.8 351.0 264
+## Ferrari Dino        19.7 145.0 175
+## Maserati Bora       15.0 301.0 335
+## Volvo 142E          21.4 121.0 109</code></pre>
+<p>You can still use column numbers in the <code>select</code> function:</p>
+<pre class="r"><code>select(mtcars, 1:3)</code></pre>
+<pre><code>##                      mpg cyl  disp
+## Mazda RX4           21.0   6 160.0
+## Mazda RX4 Wag       21.0   6 160.0
+## Datsun 710          22.8   4 108.0
+## Hornet 4 Drive      21.4   6 258.0
+## Hornet Sportabout   18.7   8 360.0
+## Valiant             18.1   6 225.0
+## Duster 360          14.3   8 360.0
+## Merc 240D           24.4   4 146.7
+## Merc 230            22.8   4 140.8
+## Merc 280            19.2   6 167.6
+## Merc 280C           17.8   6 167.6
+## Merc 450SE          16.4   8 275.8
+## Merc 450SL          17.3   8 275.8
+## Merc 450SLC         15.2   8 275.8
+## Cadillac Fleetwood  10.4   8 472.0
+## Lincoln Continental 10.4   8 460.0
+## Chrysler Imperial   14.7   8 440.0
+## Fiat 128            32.4   4  78.7
+## Honda Civic         30.4   4  75.7
+## Toyota Corolla      33.9   4  71.1
+## Toyota Corona       21.5   4 120.1
+## Dodge Challenger    15.5   8 318.0
+## AMC Javelin         15.2   8 304.0
+## Camaro Z28          13.3   8 350.0
+## Pontiac Firebird    19.2   8 400.0
+## Fiat X1-9           27.3   4  79.0
+## Porsche 914-2       26.0   4 120.3
+## Lotus Europa        30.4   4  95.1
+## Ford Pantera L      15.8   8 351.0
+## Ferrari Dino        19.7   6 145.0
+## Maserati Bora       15.0   8 301.0
+## Volvo 142E          21.4   4 121.0</code></pre>
+<p>The next function we’re going to learn about is the <code>filter</code> function. This function subsets the data by certain conditions. To use the <code>filter</code> function to select cars with 4 cylinders, we would do:</p>
+<pre class="r"><code>filter(mtcars, cyl == 4)</code></pre>
+<pre><code>##     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## 1  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## 2  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## 3  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## 4  32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## 5  30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## 6  33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## 7  21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## 8  27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## 9  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## 10 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## 11 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
+<p>We can combine conditions just like before:</p>
+<pre class="r"><code>filter(mtcars, (cyl == 4 | cyl == 8) &amp; mpg &lt; 25)</code></pre>
+<pre><code>##     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## 1  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## 2  18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## 3  14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## 4  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## 5  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## 6  16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+## 7  17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+## 8  15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+## 9  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+## 10 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+## 11 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+## 12 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## 13 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+## 14 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+## 15 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+## 16 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+## 17 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+## 18 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+## 19 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
+<p>We can also combine the functions. For example, to see the miles per gallon, displacement force, and number of cylinders for all the cars with four cylinders, we can do:</p>
+<pre class="r"><code>filter(select(mtcars, &#39;mpg&#39;, &#39;cyl&#39;, &#39;disp&#39;), cyl == 4)</code></pre>
+<pre><code>##     mpg cyl  disp
+## 1  22.8   4 108.0
+## 2  24.4   4 146.7
+## 3  22.8   4 140.8
+## 4  32.4   4  78.7
+## 5  30.4   4  75.7
+## 6  33.9   4  71.1
+## 7  21.5   4 120.1
+## 8  27.3   4  79.0
+## 9  26.0   4 120.3
+## 10 30.4   4  95.1
+## 11 21.4   4 121.0</code></pre>
+<p>Note that <code>filter</code> discards rownames. In cases where the rownames are important, you can use the <code>subset</code> function in place of filter:</p>
+<pre class="r"><code>subset(select(mtcars, &#39;mpg&#39;, &#39;cyl&#39;, &#39;disp&#39;), cyl == 4)</code></pre>
+<pre><code>##                 mpg cyl  disp
+## Datsun 710     22.8   4 108.0
+## Merc 240D      24.4   4 146.7
+## Merc 230       22.8   4 140.8
+## Fiat 128       32.4   4  78.7
+## Honda Civic    30.4   4  75.7
+## Toyota Corolla 33.9   4  71.1
+## Toyota Corona  21.5   4 120.1
+## Fiat X1-9      27.3   4  79.0
+## Porsche 914-2  26.0   4 120.3
+## Lotus Europa   30.4   4  95.1
+## Volvo 142E     21.4   4 121.0</code></pre>
+<p><code>filter</code> and <code>subset</code> are mostly the same and we’ll interchange them as needed in this tutorial. If you’d like to read more about the differences between the two, you can check out this <a href="https://stackoverflow.com/a/39882777/6024276">Stack Overflow post</a>.</p>
+<p>Note that the code above got complicated very quickly. You can imagine that as you do more and more functions on the same line, it gets easier to misplace a parentheses or a quote and it becomes harder to read. To help with this, we will start using <code>%&gt;%</code>, the pipe operator. This operator takes the object on the left and passes it as the input to the function call on the right. Liberal use of <code>%&gt;%</code> and proper formatting will make your code much easier to read and edit as we will soon demonstrate.</p>
+<p>It’s a bit of a pain to type <code>%&gt;%</code> by hand over and over, so get comfortable with the shortcut command:</p>
+<ul>
+<li>For windows users: <code>control</code> + <code>Shift</code> + <code>m</code></li>
+<li>For Mac users: <code>Cmd</code> + <code>Shift</code> + <code>m</code></li>
+</ul>
+<p>You can find a full list of shortcuts under <code>Tools</code> &gt; <code>Keyboard Shortcuts Help</code> or <a href="https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts">here</a>.</p>
+<p>Let’s start using the pipe. A basic example is:</p>
+<pre class="r"><code>mtcars %&gt;% 
+  select(&#39;mpg&#39;, &#39;cyl&#39;)</code></pre>
+<pre><code>##                      mpg cyl
+## Mazda RX4           21.0   6
+## Mazda RX4 Wag       21.0   6
+## Datsun 710          22.8   4
+## Hornet 4 Drive      21.4   6
+## Hornet Sportabout   18.7   8
+## Valiant             18.1   6
+## Duster 360          14.3   8
+## Merc 240D           24.4   4
+## Merc 230            22.8   4
+## Merc 280            19.2   6
+## Merc 280C           17.8   6
+## Merc 450SE          16.4   8
+## Merc 450SL          17.3   8
+## Merc 450SLC         15.2   8
+## Cadillac Fleetwood  10.4   8
+## Lincoln Continental 10.4   8
+## Chrysler Imperial   14.7   8
+## Fiat 128            32.4   4
+## Honda Civic         30.4   4
+## Toyota Corolla      33.9   4
+## Toyota Corona       21.5   4
+## Dodge Challenger    15.5   8
+## AMC Javelin         15.2   8
+## Camaro Z28          13.3   8
+## Pontiac Firebird    19.2   8
+## Fiat X1-9           27.3   4
+## Porsche 914-2       26.0   4
+## Lotus Europa        30.4   4
+## Ford Pantera L      15.8   8
+## Ferrari Dino        19.7   6
+## Maserati Bora       15.0   8
+## Volvo 142E          21.4   4</code></pre>
+<p>We can then use the pipe to filter these results by those cars with 4 cylinders:</p>
+<pre class="r"><code>mtcars %&gt;% 
+  select(&#39;mpg&#39;, &#39;cyl&#39;) %&gt;% 
+  filter(cyl == 4)</code></pre>
+<pre><code>##     mpg cyl
+## 1  22.8   4
+## 2  24.4   4
+## 3  22.8   4
+## 4  32.4   4
+## 5  30.4   4
+## 6  33.9   4
+## 7  21.5   4
+## 8  27.3   4
+## 9  26.0   4
+## 10 30.4   4
+## 11 21.4   4</code></pre>
+<p>Note that the <code>filter</code> function discards the row names. In cases where rownames are important, you can use the <code>subset</code> function instead of <code>filter</code>:</p>
+<pre class="r"><code>mtcars %&gt;% 
+  select(&#39;mpg&#39;, &#39;cyl&#39;) %&gt;% 
+  filter(cyl == 4)</code></pre>
+<pre><code>##     mpg cyl
+## 1  22.8   4
+## 2  24.4   4
+## 3  22.8   4
+## 4  32.4   4
+## 5  30.4   4
+## 6  33.9   4
+## 7  21.5   4
+## 8  27.3   4
+## 9  26.0   4
+## 10 30.4   4
+## 11 21.4   4</code></pre>
+<p>And we can still use what we learned previously. For example:</p>
+<pre class="r"><code>mtcars[c(&quot;Toyota Corolla&quot;, &quot;Honda Civic&quot;, &quot;Datsun 710&quot;), ] %&gt;% 
+  select(&quot;mpg&quot;, &quot;cyl&quot;)</code></pre>
+<pre><code>##                 mpg cyl
+## Toyota Corolla 33.9   4
+## Honda Civic    30.4   4
+## Datsun 710     22.8   4</code></pre>
+<div id="section" class="section level4">
+<h4></h4>
+</div>
+</div>
+</div>
+</div>
+
+<p><br>
+<br>
+<strong><a href="https://github.com/pommevilla">Paul Villanueva</a></strong> 
+<br>
+Ph.D. Student - Bioinformatics and Computational Biology<br>
+Iowa State University, Ames, IA.</p>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
