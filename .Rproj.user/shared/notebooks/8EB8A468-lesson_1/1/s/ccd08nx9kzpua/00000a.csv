@@ -1,3 +1,0 @@
-"0","mtcars %>% "
-"0","  mutate(weight_in_pounds = 1000 * wt) %>% "
-"0","  head()"

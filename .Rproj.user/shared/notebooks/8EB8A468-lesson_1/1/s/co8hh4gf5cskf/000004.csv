@@ -1,3 +1,0 @@
-"0","mtcars %>% "
-"0","  subset(mpg > mean(mtcars$mpg)) %>% "
-"0","  arrange(mpg)"

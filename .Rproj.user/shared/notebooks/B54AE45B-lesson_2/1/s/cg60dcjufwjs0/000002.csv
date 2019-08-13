@@ -1,2 +1,0 @@
-"0","flights %>% "
-"0","  inner_join(airlines, by = ""carrier"")"

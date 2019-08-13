@@ -1,4 +1,0 @@
-"0","mtcars %>% "
-"0","  select('mpg', 'cyl') %>% "
-"0","  subset(cyl == 4) %>% "
-"0","  subset(mpg > 25)"

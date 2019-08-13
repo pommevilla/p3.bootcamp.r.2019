@@ -204,23 +204,10 @@ mtcars[1:5, 1:5]
 mtcars["Toyota Corolla", 1:5]
 ```
 
-You can also use negative selection to deselect columns and rows. For instance, if we didn't care about the `qsec` column, we can do:
-
 ### Exercise 1.3
 
 * Use `rownames` to find out all the different cars that are in the dataset. Print out the rows of these cars.
-
-```{r}
-mtcars[c("Toyota Corolla", "Honda Civic", "Datsun 710"), ]
-```
-
-
 * Print out the number of cylinders, quarter-mile time, number of carburetors, and whether or not the engine is v-shaped for the cars you chose above. See the documentation for `?mtcars` to figure out which columns have that information. 
-
-```{r}
-mtcars[c("Toyota Corolla", "Honda Civic", "Datsun 710"), c("cyl", "qsec", "carb", "vs")]
-```
-
 
 ## Subsetting data based on conditions
 
@@ -258,8 +245,6 @@ mtcars[mtcars$cyl == 4 | mtcars$cyl == 6, c("cyl", "qsec")]
 ### Exercise 1.4
 
 * Use the `&`, the boolean `and` operator, to subset `mtcars` by those cars with 6 cylinders and less than 35 miles per gallon.
-* Use the `arrange` function 
-
 
 ## Getting started with the tidyverse
 

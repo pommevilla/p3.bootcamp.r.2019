@@ -1,5 +1,0 @@
-"0","mtcars %>% "
-"0","  mutate(weight_in_pounds = 1000 * wt,"
-"0","         hp_per_cylinder = hp / cyl) %>% "
-"0","  select(hp, cyl, hp_per_cylinder) %>% "
-"0","  arrange(desc(hp_per_cylinder))"

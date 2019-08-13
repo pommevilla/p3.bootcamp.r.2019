@@ -1,2 +1,0 @@
-"0","mtcars[rev(order(mtcars$mpg)), ] %>% "
-"0","  subset(mpg > mean(mtcars$mpg))"

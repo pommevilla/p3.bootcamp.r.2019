@@ -1,3 +1,0 @@
-"0","mtcars.mpg_cyl_disp <- select(mtcars, 'mpg', 'cyl', 'disp')"
-"0","mtcars.mpg_cyl_disp.four_cylinders <- subset(mtcars.mpg_cyl_disp, cyl == 4)"
-"0",""

@@ -1,3 +1,0 @@
-"0","mtcars %>% "
-"0","  ggplot(aes(x = wt, y = mpg)) + "
-"0","  geom_point()"

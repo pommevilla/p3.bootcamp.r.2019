@@ -1,4 +1,0 @@
-"0","mtcars %>% "
-"0","  filter(cyl == 4) %>% "
-"0","  select(mpg) %>% "
-"0","  summarise(mean_mpg = mean(mpg))"
