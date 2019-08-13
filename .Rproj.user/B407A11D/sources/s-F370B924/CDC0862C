@@ -5,13 +5,15 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "236961260",
+    "hash" : "0",
     "id" : "CDC0862C",
-    "lastKnownWriteTime" : 1565669784,
-    "last_content_update" : 1565669784,
+    "lastKnownWriteTime" : 1565678316,
+    "last_content_update" : 1565678316300,
     "path" : "C:/Users/pvill/repos/p3.bootcamp.r.2019/lesson_2.Rmd",
     "project_path" : "lesson_2.Rmd",
     "properties" : {
+        "cursorPosition" : "95,16",
+        "scrollLine" : "64"
     },
     "read_only" : false,
     "read_only_alternatives" : [

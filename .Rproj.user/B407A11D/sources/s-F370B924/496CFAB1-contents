@@ -7,18 +7,14 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
-# P3 Programming Bootcamp: Introduction to R
-
-## Lesson 1: R Basics
-
-### Doing math
+## Doing math
 
 ```{r}
 
 ```
 
 
-### Working with data 
+## Working with data 
 
 Most of the time you're working with R, you'll be manipulating some data that was given to you, like expression data, an OTU abundance table, or yield data. The most common form of data is some sort of rectangular container, such as a data frame, a table, a tibble, a matrix, etc. While there are some differences between all of them, they all function similarly. Note that we're going to begin our investigation using Base R functionality before we move on to using `tidyverse` (specifically, `dplyr`) functions.
 
@@ -104,7 +100,7 @@ mtcars["Toyota Corolla", 1:5]
 
 You can also use negative selection to deselect columns and rows. For instance, if we didn't care about the `qsec` column, we can do:
 
-#### Exercise 1.1
+### Exercise 1.1
 
 * Use `rownames` to find out all the different cars that are in the dataset. Print out the rows of these cars.
 
@@ -120,7 +116,7 @@ mtcars[c("Toyota Corolla", "Honda Civic", "Datsun 710"), c("cyl", "qsec", "carb"
 ```
 
 
-### Subsetting data based on conditions
+## Subsetting data based on conditions
 
 Let's say we're interested in cars with 4 cylinders. The following statement returns a vector of `TRUE` and `FALSE` indicating the rows in which the statement `cylinders equals 4` is true.
 
@@ -153,7 +149,7 @@ And we can combine it with our indexing from earlier to look at the number of cy
 mtcars[mtcars$cyl == 4 | mtcars$cyl == 6, c("cyl", "qsec")]
 ```
 
-#### Exercise 1.2
+### Exercise 1.2
 
 * Use the `&`, the boolean `and` operator, to subset `mtcars` by those cars with 6 cylinders and less than 35 miles per gallon.
 
@@ -168,7 +164,7 @@ mtcars[mtcars$cyl == 6 & mtcars$mpg < 35, ]
 ```
 
 
-### Getting started with the tidyverse
+## Getting started with the tidyverse
 
 Everything we did up to now was done using base R and was useful in helping you get a grasp of how data frames work. However, we're now going to start using the tidyverse suite of functions from here out. Let's revisit what we did earlier in the subsetting section.
 
@@ -269,4 +265,7 @@ mtcars[c("Toyota Corolla", "Honda Civic", "Datsun 710"), ] %>%
   select("mpg", "cyl")
 ```
 
-#### 
+### Exercise 1.1
+
+Next section: [ggplot2 basics](https://pommevilla.github.io/p3.bootcamp.r.2019/lesson_2.html)
+

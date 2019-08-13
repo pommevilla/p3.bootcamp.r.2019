@@ -13,5 +13,6 @@ library(reshape2)
 library(tidyverse)
 ```
 
-## Lesson 3: Getting started with ggplot2
+We're going to look at a data set and learn what we can about it. 
 
+* Next section: [Next steps](https://pommevilla.github.io/p3.bootcamp.r.2019/next_steps.html)

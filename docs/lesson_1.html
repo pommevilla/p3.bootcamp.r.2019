@@ -423,15 +423,11 @@ div.tocify {
 </div>
 
 
-<div id="p3-programming-bootcamp-introduction-to-r" class="section level1">
-<h1>P3 Programming Bootcamp: Introduction to R</h1>
-<div id="lesson-1-r-basics" class="section level2">
-<h2>Lesson 1: R Basics</h2>
-<div id="doing-math" class="section level3">
-<h3>Doing math</h3>
+<div id="doing-math" class="section level2">
+<h2>Doing math</h2>
 </div>
-<div id="working-with-data" class="section level3">
-<h3>Working with data</h3>
+<div id="working-with-data" class="section level2">
+<h2>Working with data</h2>
 <p>Most of the time you’re working with R, you’ll be manipulating some data that was given to you, like expression data, an OTU abundance table, or yield data. The most common form of data is some sort of rectangular container, such as a data frame, a table, a tibble, a matrix, etc. While there are some differences between all of them, they all function similarly. Note that we’re going to begin our investigation using Base R functionality before we move on to using <code>tidyverse</code> (specifically, <code>dplyr</code>) functions.</p>
 <p>We’re going to begin learning how to manipulate data by using <code>mtcars</code>, a dataset that comes packaged with R.</p>
 <p>Let’s learn more about the <code>mtcars</code> dataset:</p>
@@ -526,8 +522,8 @@ div.tocify {
 <pre><code>##                 mpg cyl disp hp drat
 ## Toyota Corolla 33.9   4 71.1 65 4.22</code></pre>
 <p>You can also use negative selection to deselect columns and rows. For instance, if we didn’t care about the <code>qsec</code> column, we can do:</p>
-<div id="exercise-1.1" class="section level4">
-<h4>Exercise 1.1</h4>
+<div id="exercise-1.1" class="section level3">
+<h3>Exercise 1.1</h3>
 <ul>
 <li>Use <code>rownames</code> to find out all the different cars that are in the dataset. Print out the rows of these cars.</li>
 </ul>
@@ -546,8 +542,8 @@ div.tocify {
 ## Datsun 710       4 18.61    1  1</code></pre>
 </div>
 </div>
-<div id="subsetting-data-based-on-conditions" class="section level3">
-<h3>Subsetting data based on conditions</h3>
+<div id="subsetting-data-based-on-conditions" class="section level2">
+<h2>Subsetting data based on conditions</h2>
 <p>Let’s say we’re interested in cars with 4 cylinders. The following statement returns a vector of <code>TRUE</code> and <code>FALSE</code> indicating the rows in which the statement <code>cylinders equals 4</code> is true.</p>
 <pre class="r"><code>mtcars$cyl == 4</code></pre>
 <pre><code>##  [1] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE
@@ -633,8 +629,8 @@ div.tocify {
 ## Lotus Europa     4 16.90
 ## Ferrari Dino     6 15.50
 ## Volvo 142E       4 18.60</code></pre>
-<div id="exercise-1.2" class="section level4">
-<h4>Exercise 1.2</h4>
+<div id="exercise-1.2" class="section level3">
+<h3>Exercise 1.2</h3>
 <ul>
 <li>Use the <code>&amp;</code>, the boolean <code>and</code> operator, to subset <code>mtcars</code> by those cars with 6 cylinders and less than 35 miles per gallon.</li>
 </ul>
@@ -661,8 +657,8 @@ div.tocify {
 ## Ferrari Dino   19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6</code></pre>
 </div>
 </div>
-<div id="getting-started-with-the-tidyverse" class="section level3">
-<h3>Getting started with the tidyverse</h3>
+<div id="getting-started-with-the-tidyverse" class="section level2">
+<h2>Getting started with the tidyverse</h2>
 <p>Everything we did up to now was done using base R and was useful in helping you get a grasp of how data frames work. However, we’re now going to start using the tidyverse suite of functions from here out. Let’s revisit what we did earlier in the subsetting section.</p>
 <p>Let’s import the tidyverse functions:</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
@@ -969,10 +965,9 @@ div.tocify {
 ## Toyota Corolla 33.9   4
 ## Honda Civic    30.4   4
 ## Datsun 710     22.8   4</code></pre>
-<div id="section" class="section level4">
-<h4></h4>
-</div>
-</div>
+<div id="exercise-1.1-1" class="section level3">
+<h3>Exercise 1.1</h3>
+<p>Next section: <a href="https://pommevilla.github.io/p3.bootcamp.r.2019/lesson_2.html">ggplot2 basics</a></p>
 </div>
 </div>
 

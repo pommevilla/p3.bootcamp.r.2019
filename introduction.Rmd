@@ -7,18 +7,15 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# P3 Programming Bootcamp: Introduction to R
 
-## Introduction
+## About this workshop
 
-### About this workshop
+The workshop is broken up into 4 parts:
 
-This workshop is broken up into 5 parts:
-
-* [R Basics](later)
-* [ggplot2 basics](later)
-* [Exploratory data analysis](later)
-* [Next steps](later)
+* [R Basics](https://pommevilla.github.io/p3.bootcamp.r.2019/lesson_1.html)
+* [ggplot2 basics](https://pommevilla.github.io/p3.bootcamp.r.2019/lesson_2.html)
+* [Exploratory data analysis](https://pommevilla.github.io/p3.bootcamp.r.2019/lesson_3.html)
+* [Next steps](https://pommevilla.github.io/p3.bootcamp.r.2019/next_steps.html)
 
 You'll need to install the following packages to do this workshop: ggplot2, tidyverse, Rmarkdown, and reshape2. 
 
@@ -32,7 +29,7 @@ if(length(new.packages)) {
 }
 ```
 
-### Why R?
+## Why R?
 
 Good for stats
 Most commonly used by students in the biologies
@@ -40,6 +37,8 @@ Visualizations are great
 Rmarkdown is nice
 
 
+
+Next section: [R basics](https://pommevilla.github.io/p3.bootcamp.r.2019/lesson_1.html)
 
 
 [p3-landing]: https://www.predictivephenomicsinplants.iastate.edu/
