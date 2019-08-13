@@ -1,5 +1,5 @@
 ---
-title: "Lesson 1: Getting started"
+title: "Lesson 1: R Basics"
 output: html_document
 ---
 
@@ -236,7 +236,7 @@ We can then use this vector to subset `mtcars` so that it shows only the cars wi
 mtcars[mtcars$cyl == 4, ]
 ```
 
-similarly, we can use this to look at cars that have more than 4 cylinders:
+Similarly, we can use this to look at cars that have more than 4 cylinders:
 
 ```{r}
 mtcars[mtcars$cyl > 4, ]
@@ -258,16 +258,7 @@ mtcars[mtcars$cyl == 4 | mtcars$cyl == 6, c("cyl", "qsec")]
 ### Exercise 1.4
 
 * Use the `&`, the boolean `and` operator, to subset `mtcars` by those cars with 6 cylinders and less than 35 miles per gallon.
-
-```{r}
-mtcars[mtcars$cyl == 6 & mtcars$mpg < 35, ]
-```
-
 * Use the `arrange` function 
-
-```{r}
-mtcars[mtcars$cyl == 6 & mtcars$mpg < 35, ]
-```
 
 
 ## Getting started with the tidyverse
@@ -396,7 +387,9 @@ We're usually interested in summarizing a data set. For example, we might be int
 
 ```{r}
 mean(mtcars$mpg)
-#mean(mtcars$cyl)
+# mean(mtcars$cyl)
+# mean(mtcars$disp)
+# etc...
 ```
 
 Alternatively, we can just use `colMeans` on the entire data frame at once:
@@ -442,16 +435,22 @@ Let's suppose that we wanted to get the average `mpg` of cars by the number of c
 mtcars %>% 
   filter(cyl == 4) %>% 
   select(mpg) %>% 
-  colMeans()
+  summarise(mean_mpg = mean(mpg))
 ```
 
-We could then repeat this for each of the number of cylinders to get what we need. Howver, this is not scalable, and it relies on you knowing all the different levels of the variable you're looking at. This is obviously not feasible for larger datasets. To remedy this, we can use the `group_by` and `summarise` commands from `tidyverse`. You pass the variable you would like group the original data by to the `group_by` function, and from there, we can use the summarise function to get some summary statistics by passing different formulas to the function call. For instance, to get the mean mpg by cylinder count, you can do:
+Note `summarise`, the new function that we used. `summarise` calculates whatever formula you provide on the data that is passed to it. We'll see shortly how can we use this to do some more interesting things.
+
+That's great that we got the mean mpg for the cars with four cylinders, but we still want to know the mean mpg of the other cars. We could  repeat this for each of the number of cylinders to get what we need. However, this is not scalable and relies on knowing all the different levels of the variable you're looking at. This is not feasible for larger datasets. To remedy this, we can use the `group_by` and `summarise` commands from `tidyverse`. You pass the variable you would like group the original data by to the `group_by` function, and from there, we can use the summarise function to get some summary statistics by passing different formulas to the function call. 
+
+For instance, to get the mean mpg by cylinder count, you can do:
 
 ```{r}
 mtcars %>% 
   group_by(cyl) %>% 
   summarise(mean = mean(mpg))
 ```
+
+Here, we separated the data into groups based on the number of cylinders in the car, then performed the same calculation as above. 
 
 We can also add a count column:
 

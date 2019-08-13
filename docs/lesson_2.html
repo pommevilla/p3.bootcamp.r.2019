@@ -11,7 +11,7 @@
 
 
 
-<title>Lesson 2: Getting started with ggplot2</title>
+<title>Lesson 2: Basic visualizations</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -415,7 +415,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Lesson 2: Getting started with ggplot2</h1>
+<h1 class="title toc-ignore">Lesson 2: Basic visualizations</h1>
 
 </div>
 
@@ -478,8 +478,8 @@ div.tocify {
 <li>Use <code>?theme_light</code> and try out a few other themes.</li>
 </ul>
 </div>
-<div id="more-visualizations" class="section level2">
-<h2>More visualizations</h2>
+<div id="more-practice" class="section level2">
+<h2>More practice</h2>
 <p>For the rest of the day, we’re going to work more with the <code>flights</code> dataset. Let’s begin by getting a histogram of the flights using <code>geom_bar</code>:</p>
 <pre class="r"><code>flights %&gt;% 
   ggplot(aes(x = carrier)) + 
@@ -508,30 +508,49 @@ div.tocify {
        title = &quot;Number of flights from New York airports by carrier&quot;,
        fill = &quot;Origin&quot;)</code></pre>
 <p><img src="lesson_2_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>Next, let’s try and use the full carrier name. We have access to the carrier name from the <code>airlines</code> list. We will use <code>inner_join</code> to add the information from <code>airlines</code> to the <code>flights</code> data:</p>
 <pre class="r"><code>flights %&gt;% 
-  ggplot(aes(x = carrier, fill = origin)) + 
+  inner_join(airlines, by = &quot;carrier&quot;)</code></pre>
+<pre><code>## # A tibble: 336,776 x 20
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     1      517            515         2      830
+##  2  2013     1     1      533            529         4      850
+##  3  2013     1     1      542            540         2      923
+##  4  2013     1     1      544            545        -1     1004
+##  5  2013     1     1      554            600        -6      812
+##  6  2013     1     1      554            558        -4      740
+##  7  2013     1     1      555            600        -5      913
+##  8  2013     1     1      557            600        -3      709
+##  9  2013     1     1      557            600        -3      838
+## 10  2013     1     1      558            600        -2      753
+## # ... with 336,766 more rows, and 13 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, name &lt;chr&gt;</code></pre>
+<p>Now we have an additional column at the end for the full name of the carrier. Let’s revisit our earlier graph with this new information:</p>
+<pre class="r"><code>flights %&gt;% 
+  inner_join(airlines, by = &quot;carrier&quot;) %&gt;% 
+  ggplot(aes(x = name, fill = origin)) + 
   geom_bar() + 
-  facet_wrap(~ origin, ncol = 1) +
   labs(x = &quot;Carrier&quot;,
        y = &quot;&quot;,
-       title = &quot;Number of flights from New York airports by carrier and origin&quot;,
-       fill = &quot;Origin&quot;) +
-  theme(legend.position = &quot;none&quot;)</code></pre>
-<p><img src="lesson_2_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<pre class="r"><code>flights %&gt;% 
-  count(carrier, sort = TRUE) %&gt;% 
-  mutate(carrier = fct_reorder(carrier, n)) %&gt;% 
-  ggplot(aes(carrier, n)) +
-  geom_col() + coord_flip()</code></pre>
+       title = &quot;Number of flights from New York airports by carrier&quot;,
+       fill = &quot;Origin&quot;) </code></pre>
 <p><img src="lesson_2_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
-<pre class="r"><code>flights %&gt;% 
-  count(carrier) %&gt;% 
-  ggplot(aes(x = reorder(carrier, n), y = n)) + 
-  geom_col()</code></pre>
+<div id="exercise-2.2" class="section level3">
+<h3>Exercise 2.2</h3>
+<ul>
+<li>The text at the bottom is super cluttered now. Look up <code>?theme</code> and look at <code>axis.text.x</code> to learn how to rotate the text. Feel free to search online, also.</li>
+<li>The <code>airports</code> data contains full airport names for several airports. Repeat the <code>inner_join</code> process above to combine this information into the data frame above. Look at the resulting data frame. What do you see different here? How can you use what you’ve learned today to fix this? Hint: One solution is to use <code>mutate</code>.</li>
+<li>There’s a lot of information on the chart, and stacking the bar plots might not be the most informative way to present it. Look up <code>facet_wrap</code> and use it to separate the chart into there separate bar plots. Alternatively, read the Details section of the documentation for <code>geom_bar</code> for another way to address this problem.</li>
+<li>Reproduce the following graph (borrowed heavily from <a href="https://www.andrew.cmu.edu/user/achoulde/94842/lectures/lecture12/lecture12-94842.html">Alexandra Chouldechova</a>). How can it be improved?</li>
+</ul>
 <p><img src="lesson_2_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <ul>
 <li>Next section: <a href="https://pommevilla.github.io/p3.bootcamp.r.2019/next_steps.html">Next steps</a></li>
 </ul>
+</div>
 </div>
 
 <p><br>

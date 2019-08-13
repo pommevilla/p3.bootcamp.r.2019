@@ -1,0 +1,8 @@
+"0","flights %>% "
+"0","  inner_join(airlines, by = ""carrier"") %>% "
+"0","  ggplot(aes(x = name, fill = origin)) + "
+"0","  geom_bar() + "
+"0","  labs(x = ""Carrier"","
+"0","       y = """","
+"0","       title = ""Number of flights from New York airports by carrier"","
+"0","       fill = ""Origin"") "

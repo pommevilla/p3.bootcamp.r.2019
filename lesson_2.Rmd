@@ -1,12 +1,11 @@
 ---
-title: "Lesson 2: Getting started with ggplot2"
+title: "Lesson 2: Basic visualizations"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
-
 
 Hadley Wickham, chief scientist at RStudio (and ISU alum!), said in [A Layered Grammar of Graphics](https://vita.had.co.nz/papers/layered-grammar.pdf):
 
@@ -89,7 +88,7 @@ mtcars %>%
 * Experiment with the color aesthetic by mapping it to different variables. Try mapping another variable to the `size` aesthetic (`qsec`, for instance).
 * Use `?theme_light` and try out a few other themes.
 
-## More visualizations
+## More practice
 
 For the rest of the day, we're going to work more with the `flights` dataset. Let's begin by getting a histogram of the flights using `geom_bar`:
 
@@ -127,38 +126,58 @@ flights %>%
        fill = "Origin")
 ```
 
-
+Next, let's try and use the full carrier name. We have access to the carrier name from the `airlines` list. We will use `inner_join` to add the information from `airlines` to the `flights` data:
 
 ```{r}
 flights %>% 
-  ggplot(aes(x = carrier, fill = origin)) + 
+  inner_join(airlines, by = "carrier")
+```
+
+Now we have an additional column at the end for the full name of the carrier. Let's revisit our earlier graph with this new information:
+
+```{r}
+flights %>% 
+  inner_join(airlines, by = "carrier") %>% 
+  ggplot(aes(x = name, fill = origin)) + 
   geom_bar() + 
-  facet_wrap(~ origin, ncol = 1) +
   labs(x = "Carrier",
        y = "",
-       title = "Number of flights from New York airports by carrier and origin",
-       fill = "Origin") +
-  theme(legend.position = "none")
+       title = "Number of flights from New York airports by carrier",
+       fill = "Origin") 
 ```
 
+### Exercise 2.2
 
+* The text at the bottom is super cluttered now. Look up `?theme` and look at `axis.text.x` to learn how to rotate the text. Feel free to search online, also.
+* The `airports` data contains full airport names for several airports. Repeat the `inner_join` process above to combine this information into the data frame above. Look at the resulting data frame. What do you see different here? How can you use what you've learned today to fix this? Hint: One solution is to use `mutate`.
+* There's a lot of information on the chart, and stacking the bar plots might not be the most informative way to present it. Look up `facet_wrap` and use it to separate the chart into there separate bar plots. Alternatively, read the Details section of the documentation for `geom_bar` for another way to address this problem.
+* Reproduce the following graph (borrowed heavily from [Alexandra Chouldechova](https://www.andrew.cmu.edu/user/achoulde/94842/lectures/lecture12/lecture12-94842.html)). How can it be improved?
 
-```{r}
+```{r echo = FALSE}
 flights %>% 
-  count(carrier, sort = TRUE) %>% 
-  mutate(carrier = fct_reorder(carrier, n)) %>% 
-  ggplot(aes(carrier, n)) +
-  geom_col() + coord_flip()
+  inner_join(airlines, by = "carrier") %>% 
+  inner_join(airports, by = c("origin" = "faa")) %>% 
+  mutate(carrier_name = name.x,
+         origin_name = name.y) %>% 
+  group_by(dest, origin_name) %>%
+  summarise(av_dep_delay = mean(dep_delay, na.rm = TRUE),
+            count = n()) %>%
+  ungroup() %>%
+  filter(count > 50) %>%
+  mutate(dest = reorder(dest, av_dep_delay)) %>%
+  ggplot(aes(x = dest, y = av_dep_delay, 
+             size = count, color = count)) + 
+  geom_point(alpha = 0.5) +
+  scale_size_area() +
+  labs(x = "",
+       y = "",
+       title = "Average departure delay to destination airport",
+       subtitle = "In minutes; size of point scales with frequency") + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),
+        legend.position = "none") + 
+  facet_wrap(~ origin_name, ncol = 1) 
+  
 ```
 
-
-
-
-```{r}
-flights %>% 
-  count(carrier) %>% 
-  ggplot(aes(x = reorder(carrier, n), y = n)) + 
-  geom_col()
-```
 
 * Next section: [Next steps](https://pommevilla.github.io/p3.bootcamp.r.2019/next_steps.html)

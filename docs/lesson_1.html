@@ -11,7 +11,7 @@
 
 
 
-<title>Lesson 1: Getting started</title>
+<title>Lesson 1: R Basics</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -415,7 +415,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Lesson 1: Getting started</h1>
+<h1 class="title toc-ignore">Lesson 1: R Basics</h1>
 
 </div>
 
@@ -636,7 +636,7 @@ y + z</code></pre>
 ## Porsche 914-2  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
 ## Lotus Europa   30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
 ## Volvo 142E     21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
-<p>similarly, we can use this to look at cars that have more than 4 cylinders:</p>
+<p>Similarly, we can use this to look at cars that have more than 4 cylinders:</p>
 <pre class="r"><code>mtcars[mtcars$cyl &gt; 4, ]</code></pre>
 <pre><code>##                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 ## Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
@@ -706,28 +706,8 @@ y + z</code></pre>
 <h3>Exercise 1.4</h3>
 <ul>
 <li>Use the <code>&amp;</code>, the boolean <code>and</code> operator, to subset <code>mtcars</code> by those cars with 6 cylinders and less than 35 miles per gallon.</li>
-</ul>
-<pre class="r"><code>mtcars[mtcars$cyl == 6 &amp; mtcars$mpg &lt; 35, ]</code></pre>
-<pre><code>##                 mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-## Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
-## Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
-## Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
-## Valiant        18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
-## Merc 280       19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
-## Merc 280C      17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
-## Ferrari Dino   19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6</code></pre>
-<ul>
 <li>Use the <code>arrange</code> function</li>
 </ul>
-<pre class="r"><code>mtcars[mtcars$cyl == 6 &amp; mtcars$mpg &lt; 35, ]</code></pre>
-<pre><code>##                 mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-## Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
-## Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
-## Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
-## Valiant        18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
-## Merc 280       19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
-## Merc 280C      17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
-## Ferrari Dino   19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6</code></pre>
 </div>
 </div>
 <div id="getting-started-with-the-tidyverse" class="section level2">
@@ -1018,7 +998,9 @@ head(flights)</code></pre>
 <p>We’re usually interested in summarizing a data set. For example, we might be interested in the means of each of the variables in <code>mtcars</code>. One way to do this is to use the mean function on each of the columns individually:</p>
 <pre class="r"><code>mean(mtcars$mpg)</code></pre>
 <pre><code>## [1] 20.09062</code></pre>
-<pre class="r"><code>#mean(mtcars$cyl)</code></pre>
+<pre class="r"><code># mean(mtcars$cyl)
+# mean(mtcars$disp)
+# etc...</code></pre>
 <p>Alternatively, we can just use <code>colMeans</code> on the entire data frame at once:</p>
 <pre class="r"><code>colMeans(mtcars)</code></pre>
 <pre><code>##        mpg        cyl       disp         hp       drat         wt 
@@ -1093,10 +1075,12 @@ head(flights)</code></pre>
 <pre class="r"><code>mtcars %&gt;% 
   filter(cyl == 4) %&gt;% 
   select(mpg) %&gt;% 
-  colMeans()</code></pre>
-<pre><code>##      mpg 
-## 26.66364</code></pre>
-<p>We could then repeat this for each of the number of cylinders to get what we need. Howver, this is not scalable, and it relies on you knowing all the different levels of the variable you’re looking at. This is obviously not feasible for larger datasets. To remedy this, we can use the <code>group_by</code> and <code>summarise</code> commands from <code>tidyverse</code>. You pass the variable you would like group the original data by to the <code>group_by</code> function, and from there, we can use the summarise function to get some summary statistics by passing different formulas to the function call. For instance, to get the mean mpg by cylinder count, you can do:</p>
+  summarise(mean_mpg = mean(mpg))</code></pre>
+<pre><code>##   mean_mpg
+## 1 26.66364</code></pre>
+<p>Note <code>summarise</code>, the new function that we used. <code>summarise</code> calculates whatever formula you provide on the data that is passed to it. We’ll see shortly how can we use this to do some more interesting things.</p>
+<p>That’s great that we got the mean mpg for the cars with four cylinders, but we still want to know the mean mpg of the other cars. We could repeat this for each of the number of cylinders to get what we need. However, this is not scalable and relies on knowing all the different levels of the variable you’re looking at. This is not feasible for larger datasets. To remedy this, we can use the <code>group_by</code> and <code>summarise</code> commands from <code>tidyverse</code>. You pass the variable you would like group the original data by to the <code>group_by</code> function, and from there, we can use the summarise function to get some summary statistics by passing different formulas to the function call.</p>
+<p>For instance, to get the mean mpg by cylinder count, you can do:</p>
 <pre class="r"><code>mtcars %&gt;% 
   group_by(cyl) %&gt;% 
   summarise(mean = mean(mpg))</code></pre>
@@ -1106,6 +1090,7 @@ head(flights)</code></pre>
 ## 1     4  26.7
 ## 2     6  19.7
 ## 3     8  15.1</code></pre>
+<p>Here, we separated the data into groups based on the number of cylinders in the car, then performed the same calculation as above.</p>
 <p>We can also add a count column:</p>
 <pre class="r"><code>mtcars %&gt;% 
   group_by(cyl) %&gt;% 
