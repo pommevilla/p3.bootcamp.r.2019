@@ -401,9 +401,6 @@ div.tocify {
   <a href="lesson_2.html">Basic visualizations</a>
 </li>
 <li>
-  <a href="lesson_3.html">EDA</a>
-</li>
-<li>
   <a href="next_steps.html">Next steps</a>
 </li>
       </ul>
@@ -1072,40 +1069,26 @@ head(flights)</code></pre>
 <p>And we can sort them by <code>mpg</code>:</p>
 <pre class="r"><code>mtcars %&gt;% 
   subset(mpg &gt; mean(mtcars$mpg)) %&gt;% 
-  arrange(mpg)</code></pre>
-<pre><code>##     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-## 1  21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
-## 2  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
-## 3  21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
-## 4  21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
-## 5  21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
-## 6  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
-## 7  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
-## 8  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
-## 9  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
-## 10 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
-## 11 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
-## 12 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
-## 13 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
-## 14 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1</code></pre>
+  arrange(mpg) %&gt;% 
+  head()</code></pre>
+<pre><code>##    mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## 1 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## 2 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## 3 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## 4 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
+## 5 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## 6 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1</code></pre>
 <p>Again, because we’re working with a <code>data.frame</code>, the dplyr functions drop the the row names. To preserve the row names, we can first reorder the <code>data.frame</code> using Base R, then subset it:</p>
 <pre class="r"><code>mtcars[rev(order(mtcars$mpg)), ] %&gt;% 
-  subset(mpg &gt; mean(mtcars$mpg))</code></pre>
+  subset(mpg &gt; mean(mtcars$mpg)) %&gt;% 
+  head()</code></pre>
 <pre><code>##                 mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 ## Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
 ## Fiat 128       32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
 ## Lotus Europa   30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
 ## Honda Civic    30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
 ## Fiat X1-9      27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
-## Porsche 914-2  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
-## Merc 240D      24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
-## Merc 230       22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
-## Datsun 710     22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
-## Toyota Corona  21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
-## Volvo 142E     21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
-## Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
-## Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
-## Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4</code></pre>
+## Porsche 914-2  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2</code></pre>
 <p>Let’s suppose that we wanted to get the average <code>mpg</code> of cars by the number of cylinders it has. One way we can do this is to filter by the number of cylinders, select the <code>mpg</code> column, and then take the mean:</p>
 <pre class="r"><code>mtcars %&gt;% 
   filter(cyl == 4) %&gt;% 
@@ -1152,13 +1135,17 @@ head(flights)</code></pre>
 <li>What is the average horsepower, weight, and displacement by cylinder count?</li>
 <li>How many cars are there with automatic transmission?</li>
 <li>What is the count of cars by gear count?</li>
-<li>What is the breakdown of car count by transmission type *and** gear count? Hint: you can group by more than one variable at a time. Notice anything interesting?</li>
+<li>What is the breakdown of car count by transmission type <strong>and</strong> gear count? Hint: you can group by more than one variable at a time. Notice anything interesting?</li>
 </ul>
 <p>For the <code>flights</code> dataset:</p>
 <ul>
 <li>Which carrier had the most flights that departed later than two hours?</li>
-<li>which carrier had the most early arrivals by more than 15 minute?</li>
+<li>which carrier had the lowest average arrival delay?</li>
 <li>which destination airport had the most arrivals later than 30 minutes?</li>
+<li>Use <code>n_distinct</code> to find out how many distinct carriers and destinations there are.</li>
+<li>Which route (origin-destination pair) had the most flights?</li>
+<li>Which day had the most flights?</li>
+<li>Which day had the arrival delays greater than 30 minutes?</li>
 </ul>
 </div>
 </div>
@@ -1166,41 +1153,86 @@ head(flights)</code></pre>
 <h2>Adding new variables with mutate</h2>
 <p>The <code>mutate</code> function lets us add new variables to a data object by specifying a formula. For instance, to add a new column to <code>mtcars</code> showing the weight of the car in pounds (instead of thousands of pounds), we can do:</p>
 <pre class="r"><code>mtcars %&gt;% 
-  mutate(weight_in_pounds = 1000 * wt)</code></pre>
-<pre><code>##     mpg cyl  disp  hp drat    wt  qsec vs am gear carb weight_in_pounds
-## 1  21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4             2620
-## 2  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4             2875
-## 3  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1             2320
-## 4  21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1             3215
-## 5  18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2             3440
-## 6  18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1             3460
-## 7  14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4             3570
-## 8  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2             3190
-## 9  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2             3150
-## 10 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4             3440
-## 11 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4             3440
-## 12 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3             4070
-## 13 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3             3730
-## 14 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3             3780
-## 15 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4             5250
-## 16 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4             5424
-## 17 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4             5345
-## 18 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1             2200
-## 19 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2             1615
-## 20 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1             1835
-## 21 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1             2465
-## 22 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2             3520
-## 23 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2             3435
-## 24 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4             3840
-## 25 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2             3845
-## 26 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1             1935
-## 27 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2             2140
-## 28 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2             1513
-## 29 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4             3170
-## 30 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6             2770
-## 31 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8             3570
-## 32 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2             2780</code></pre>
+  mutate(weight_in_pounds = 1000 * wt) %&gt;% 
+  head()</code></pre>
+<pre><code>##    mpg cyl disp  hp drat    wt  qsec vs am gear carb weight_in_pounds
+## 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4             2620
+## 2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4             2875
+## 3 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1             2320
+## 4 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1             3215
+## 5 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2             3440
+## 6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1             3460</code></pre>
+<p>We can add multiple variables at once. For example:</p>
+<pre class="r"><code>mtcars %&gt;% 
+  mutate(weight_in_pounds = 1000 * wt,
+         hp_per_cylinder = hp / cyl) %&gt;% 
+  head()</code></pre>
+<pre><code>##    mpg cyl disp  hp drat    wt  qsec vs am gear carb weight_in_pounds
+## 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4             2620
+## 2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4             2875
+## 3 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1             2320
+## 4 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1             3215
+## 5 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2             3440
+## 6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1             3460
+##   hp_per_cylinder
+## 1        18.33333
+## 2        18.33333
+## 3        23.25000
+## 4        18.33333
+## 5        21.87500
+## 6        17.50000</code></pre>
+<p>And from there, we can do all the other things that we have learned so far:</p>
+<pre class="r"><code>mtcars %&gt;% 
+  mutate(weight_in_pounds = 1000 * wt,
+         hp_per_cylinder = hp / cyl) %&gt;% 
+  select(hp, cyl, hp_per_cylinder) %&gt;% 
+  arrange(desc(hp_per_cylinder))</code></pre>
+<pre><code>##     hp cyl hp_per_cylinder
+## 1  335   8        41.87500
+## 2  264   8        33.00000
+## 3  245   8        30.62500
+## 4  245   8        30.62500
+## 5  175   6        29.16667
+## 6  230   8        28.75000
+## 7  113   4        28.25000
+## 8  109   4        27.25000
+## 9  215   8        26.87500
+## 10 205   8        25.62500
+## 11  97   4        24.25000
+## 12  95   4        23.75000
+## 13  93   4        23.25000
+## 14  91   4        22.75000
+## 15 180   8        22.50000
+## 16 180   8        22.50000
+## 17 180   8        22.50000
+## 18 175   8        21.87500
+## 19 175   8        21.87500
+## 20 123   6        20.50000
+## 21 123   6        20.50000
+## 22 150   8        18.75000
+## 23 150   8        18.75000
+## 24 110   6        18.33333
+## 25 110   6        18.33333
+## 26 110   6        18.33333
+## 27 105   6        17.50000
+## 28  66   4        16.50000
+## 29  66   4        16.50000
+## 30  65   4        16.25000
+## 31  62   4        15.50000
+## 32  52   4        13.00000</code></pre>
+<div id="exercise-1.7" class="section level3">
+<h3>Exercise 1.7</h3>
+<p>For the <code>mtcars</code>:</p>
+<ul>
+<li>What is the average <code>hp_per_cylinder</code> by cylinder count?</li>
+</ul>
+<p>For the <code>flights</code> dataset:</p>
+<ul>
+<li>Create a new variable <code>gain</code>, defined as the the difference between the departure delay and arrival delay of a flight. What does this variable represent? What is the average gain for all flights in 2013? By airline?</li>
+<li>Which routes had the worst (ie, largest) average gain?</li>
+</ul>
 <p>Next section: <a href="https://pommevilla.github.io/p3.bootcamp.r.2019/lesson_2.html">ggplot2 basics</a></p>
+</div>
 </div>
 
 <p><br>

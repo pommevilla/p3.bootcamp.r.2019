@@ -424,14 +424,16 @@ And we can sort them by `mpg`:
 ```{r}
 mtcars %>% 
   subset(mpg > mean(mtcars$mpg)) %>% 
-  arrange(mpg)
+  arrange(mpg) %>% 
+  head()
 ```
 
 Again, because we're working with a `data.frame`, the dplyr functions drop the the row names. To preserve the row names, we can first reorder the `data.frame` using Base R, then subset it:
 
 ```{r}
 mtcars[rev(order(mtcars$mpg)), ] %>% 
-  subset(mpg > mean(mtcars$mpg))
+  subset(mpg > mean(mtcars$mpg)) %>% 
+  head()
 ```
 
 Let's suppose that we wanted to get the average `mpg` of cars by the number of cylinders it has. One way we can do this is to filter by the number of cylinders, select the `mpg` column, and then take the mean:
@@ -476,13 +478,17 @@ For the `mtcars` dataset:
 * What is the average horsepower, weight, and displacement by cylinder count?
 * How many cars are there with automatic transmission? 
 * What is the count of cars by gear count?
-* What is the breakdown of car count by transmission type *and** gear count? Hint: you can group by more than one variable at a time. Notice anything interesting?
+* What is the breakdown of car count by transmission type **and** gear count? Hint: you can group by more than one variable at a time. Notice anything interesting?
 
 For the `flights` dataset:
 
 * Which carrier had the most flights that departed later than two hours?
-* which carrier had the most early arrivals by more than 15 minute?
+* which carrier had the lowest average arrival delay?
 * which destination airport had the most arrivals later than 30 minutes?
+* Use `n_distinct` to find out how many distinct carriers and destinations there are. 
+* Which route (origin-destination pair) had the most flights?
+* Which day had the most flights?
+* Which day had the arrival delays greater than 30 minutes?
 
 ## Adding new variables with mutate
 
@@ -490,9 +496,41 @@ The `mutate` function lets us add new variables to a data object by specifying a
 
 ```{r}
 mtcars %>% 
-  mutate(weight_in_pounds = 1000 * wt)
+  mutate(weight_in_pounds = 1000 * wt) %>% 
+  head()
 ```
 
+We can add multiple variables at once. For example:
+
+```{r}
+mtcars %>% 
+  mutate(weight_in_pounds = 1000 * wt,
+         hp_per_cylinder = hp / cyl) %>% 
+  head()
+```
+
+And from there, we can do all the other things that we have learned so far:
+
+```{r}
+mtcars %>% 
+  mutate(weight_in_pounds = 1000 * wt,
+         hp_per_cylinder = hp / cyl) %>% 
+  select(hp, cyl, hp_per_cylinder) %>% 
+  arrange(desc(hp_per_cylinder))
+```
+
+
+
+### Exercise 1.7
+
+For the `mtcars`:
+
+* What is the average `hp_per_cylinder` by cylinder count?
+
+For the `flights` dataset:
+
+* Create a new variable `gain`, defined as the the difference between the departure delay and arrival delay of a flight. What does this variable represent? What is the average gain for all flights in 2013? By airline?
+* Which routes had the worst (ie, largest) average gain?
 
 
 Next section: [ggplot2 basics](https://pommevilla.github.io/p3.bootcamp.r.2019/lesson_2.html)

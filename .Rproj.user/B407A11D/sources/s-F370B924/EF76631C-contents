@@ -14,7 +14,6 @@ The workshop is broken up into 4 parts:
 
 * [R Basics](https://pommevilla.github.io/p3.bootcamp.r.2019/lesson_1.html)
 * [ggplot2 basics](https://pommevilla.github.io/p3.bootcamp.r.2019/lesson_2.html)
-* [Exploratory data analysis](https://pommevilla.github.io/p3.bootcamp.r.2019/lesson_3.html)
 * [Next steps](https://pommevilla.github.io/p3.bootcamp.r.2019/next_steps.html)
 
 You'll need to install the following packages to do this workshop: ggplot2, tidyverse, Rmarkdown, and reshape2. 
@@ -31,12 +30,15 @@ if(length(new.packages)) {
 
 ## Why R?
 
-Good for stats
-Most commonly used by students in the biologies
-Visualizations are great
-Rmarkdown is nice
+There are several programming languages out there, and they're all ultimately capable of doing whatever your goal is. That being said, here are some reasons why you might choose to learn R:
 
+* R seems to be the language of choice for statistical modeling and analysis.
+* Creating pretty graphs is relatively straightforward with `ggplot2`
+* RStudio is an excellent IDE and is constantly being updated and bug-fixed.
+* The biggest draw for me is the community support. R actively fosters a community of supportive people that you can turn to for help. 
+* Another benefit of this large community is that there are tons of packages for you to use. If you need to perform a specific task, there is likely an R package that can do it for you.
 
+Let's get started!
 
 Next section: [R basics](https://pommevilla.github.io/p3.bootcamp.r.2019/lesson_1.html)
 

@@ -11,8 +11,6 @@ navbar:
     href: lesson_1.html
   - text: Basic visualizations
     href: lesson_2.html
-  - text: EDA
-    href: lesson_3.html
   - text: Next steps
     href: next_steps.html
 

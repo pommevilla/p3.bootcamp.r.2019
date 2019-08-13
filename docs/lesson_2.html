@@ -401,9 +401,6 @@ div.tocify {
   <a href="lesson_2.html">Basic visualizations</a>
 </li>
 <li>
-  <a href="lesson_3.html">EDA</a>
-</li>
-<li>
   <a href="next_steps.html">Next steps</a>
 </li>
       </ul>
@@ -423,14 +420,11 @@ div.tocify {
 </div>
 
 
-<p>R has a native function for plotting, but we’re going to start learning about <code>ggplot</code>. <code>ggplot</code> offers more control and more</p>
 <p>Hadley Wickham, chief scientist at RStudio (and ISU alum!), said in <a href="https://vita.had.co.nz/papers/layered-grammar.pdf">A Layered Grammar of Graphics</a>:</p>
 <blockquote>
 <p>A grammar of graphics is a tool that enables us to concisely describe the components of a graphic.</p>
 </blockquote>
-<p>The <code>ggplot2</code> package is built around the idea of “building up a graphic from multiple layers of data.”</p>
-<div id="section" class="section level3">
-<h3></h3>
+<p>The <code>ggplot2</code> package is built around the idea of “building up a graphic from multiple layers of data.” In other words, we’re building up our plot from individual pieces, one function call at a time.</p>
 <p>The function call for ggplot is:</p>
 <pre class="r"><code>ggplot(data, mapping = aes(...)) + 
   &lt;geom_layers&gt; + 
@@ -474,16 +468,70 @@ div.tocify {
        subtitle = &quot;Data from Motor Trend magazine&quot;) + 
   theme_light()</code></pre>
 <p><img src="lesson_2_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<div id="exercises-2.1" class="section level4">
-<h4>Exercises 2.1</h4>
+<div id="exercises-2.1" class="section level3">
+<h3>Exercises 2.1</h3>
 <ul>
-<li>What are some things we can do to improve the clarity and effectiveness of this graph?</li>
+<li>We colored the points according to the number of cylinders it has, but there’s something wrong with it. What is it? How can we fix it?</li>
+<li>What are some things we can do to improve this graph?</li>
 <li>What are conclusions you can draw from this graph?</li>
 <li>Experiment with the color aesthetic by mapping it to different variables. Try mapping another variable to the <code>size</code> aesthetic (<code>qsec</code>, for instance).</li>
-<li><p>Use <code>?theme_light</code> and try out a few other themes.</p></li>
-<li><p>Next section: <a href="https://pommevilla.github.io/p3.bootcamp.r.2019/lesson_3.html">Exploratory data analysis</a></p></li>
+<li>Use <code>?theme_light</code> and try out a few other themes.</li>
 </ul>
 </div>
+<div id="more-visualizations" class="section level2">
+<h2>More visualizations</h2>
+<p>For the rest of the day, we’re going to work more with the <code>flights</code> dataset. Let’s begin by getting a histogram of the flights using <code>geom_bar</code>:</p>
+<pre class="r"><code>flights %&gt;% 
+  ggplot(aes(x = carrier)) + 
+  geom_bar()</code></pre>
+<p><img src="lesson_2_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>We can look up the airline codes by using <code>airlines</code>. Doing so, we see that United Airlines, JetBlue, and ExpressJet Airlines have the most flights out of New York in 2013.</p>
+<pre class="r"><code>airlines %&gt;% 
+  filter(carrier %in% c(&quot;UA&quot;, &quot;EV&quot;, &quot;B6&quot;))</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##   carrier name                    
+##   &lt;chr&gt;   &lt;chr&gt;                   
+## 1 B6      JetBlue Airways         
+## 2 EV      ExpressJet Airlines Inc.
+## 3 UA      United Air Lines Inc.</code></pre>
+<p>Let’s fill in the bars with the name of the origin airport:</p>
+<pre class="r"><code>flights %&gt;% 
+  ggplot(aes(x = carrier, fill = origin)) + 
+  geom_bar()</code></pre>
+<p><img src="lesson_2_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Let’s polish the graph a little:</p>
+<pre class="r"><code>flights %&gt;% 
+  ggplot(aes(x = carrier, fill = origin)) + 
+  geom_bar() + 
+  labs(x = &quot;Carrier&quot;,
+       y = &quot;&quot;,
+       title = &quot;Number of flights from New York airports by carrier&quot;,
+       fill = &quot;Origin&quot;)</code></pre>
+<p><img src="lesson_2_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="r"><code>flights %&gt;% 
+  ggplot(aes(x = carrier, fill = origin)) + 
+  geom_bar() + 
+  facet_wrap(~ origin, ncol = 1) +
+  labs(x = &quot;Carrier&quot;,
+       y = &quot;&quot;,
+       title = &quot;Number of flights from New York airports by carrier and origin&quot;,
+       fill = &quot;Origin&quot;) +
+  theme(legend.position = &quot;none&quot;)</code></pre>
+<p><img src="lesson_2_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre class="r"><code>flights %&gt;% 
+  count(carrier, sort = TRUE) %&gt;% 
+  mutate(carrier = fct_reorder(carrier, n)) %&gt;% 
+  ggplot(aes(carrier, n)) +
+  geom_col() + coord_flip()</code></pre>
+<p><img src="lesson_2_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<pre class="r"><code>flights %&gt;% 
+  count(carrier) %&gt;% 
+  ggplot(aes(x = reorder(carrier, n), y = n)) + 
+  geom_col()</code></pre>
+<p><img src="lesson_2_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<ul>
+<li>Next section: <a href="https://pommevilla.github.io/p3.bootcamp.r.2019/next_steps.html">Next steps</a></li>
+</ul>
 </div>
 
 <p><br>

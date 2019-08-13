@@ -1,0 +1,8 @@
+"0","mtcars %>% "
+"0","  ggplot(aes(x = wt, y = mpg)) + "
+"0","  geom_point(aes(color = cyl)) +"
+"0","  labs(x = ""Weight"","
+"0","       y = ""Miles per gallon"","
+"0","       title = ""Miles per gallon versus weight for automobiles"","
+"0","       subtitle = ""Data from Motor Trend magazine"") + "
+"0","  theme_light()"

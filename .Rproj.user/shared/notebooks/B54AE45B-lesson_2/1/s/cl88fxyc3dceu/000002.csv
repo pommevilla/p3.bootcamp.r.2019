@@ -1,0 +1,5 @@
+"0","mtcars %>% "
+"0","  ggplot(aes(x = wt, y = mpg)) + "
+"0","  geom_point() +"
+"0","  labs(x = ""Weight (in thousands of lbs)"","
+"0","       y = ""Miles per gallon"")"
