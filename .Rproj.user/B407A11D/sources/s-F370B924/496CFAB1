@@ -5,15 +5,16 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "1671803664",
+    "hash" : "1493309262",
     "id" : "496CFAB1",
-    "lastKnownWriteTime" : 1565678297,
-    "last_content_update" : 1565678297185,
+    "lastKnownWriteTime" : 1565700074,
+    "last_content_update" : 1565700074347,
     "path" : "C:/Users/pvill/repos/p3.bootcamp.r.2019/lesson_1.Rmd",
     "project_path" : "lesson_1.Rmd",
     "properties" : {
-        "cursorPosition" : "270,0",
-        "scrollLine" : "241"
+        "cursorPosition" : "484,72",
+        "last_setup_crc32" : "F370B9247d023e20",
+        "scrollLine" : "474"
     },
     "read_only" : false,
     "read_only_alternatives" : [

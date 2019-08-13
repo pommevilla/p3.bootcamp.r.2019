@@ -9,10 +9,8 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 
 ```{r}
 library(ggplot2)
-library(reshape2)
 library(tidyverse)
 ```
 
-We're going to look at a data set and learn what we can about it. 
+Now that we've practice a bit with ggplot, we're going to work on a few more plots with the `flights` dataset.
 
-* Next section: [Next steps](https://pommevilla.github.io/p3.bootcamp.r.2019/next_steps.html)

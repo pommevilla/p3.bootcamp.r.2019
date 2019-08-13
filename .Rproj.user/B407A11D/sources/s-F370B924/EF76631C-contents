@@ -22,7 +22,7 @@ You'll need to install the following packages to do this workshop: ggplot2, tidy
 Copy and paste the following lines of code into your R console to download them all at once.
 
 ```{r}
-reqs <- c("tidyverse", "reshape2", "rmarkdown")
+reqs <- c("tidyverse", "rmarkdown", "nycflights13")
 missing_packages <- reqs[!(reqs %in% installed.packages()[, "Package"])]
 if(length(new.packages)) {
   install.packages(missing_packages)

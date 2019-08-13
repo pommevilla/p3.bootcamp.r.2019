@@ -11,7 +11,7 @@
 
 
 
-<title>Lesson 1: R Basics</title>
+<title>Lesson 1: Getting started</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -418,13 +418,89 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Lesson 1: R Basics</h1>
+<h1 class="title toc-ignore">Lesson 1: Getting started</h1>
 
 </div>
 
 
-<div id="doing-math" class="section level2">
-<h2>Doing math</h2>
+<div id="basic-arithmetic-assignment" class="section level2">
+<h2>Basic arithmetic, assignment</h2>
+<p>The normal mathematic operators work in R, and they follow the order of operations:</p>
+<pre class="r"><code>1 / 20 * 30</code></pre>
+<pre><code>## [1] 1.5</code></pre>
+<p>You can use parentheses to change the order in which the expressions are calculated:</p>
+<pre class="r"><code>1 / (20 * 30)</code></pre>
+<pre><code>## [1] 0.001666667</code></pre>
+<pre class="r"><code>cos(2 * pi)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>You can assign values to objects with <code>&lt;-</code>, the assignment operator. The shortcut for this is:</p>
+<ul>
+<li>For Windows Users, <code>Alt</code> + <code>-</code></li>
+<li>For Mac Users, <code>Cmd</code> + <code>-</code></li>
+</ul>
+<p>After assignment, we can perform whatever operations we would like with that variable:</p>
+<pre class="r"><code>x &lt;- 5
+x + 5</code></pre>
+<pre><code>## [1] 10</code></pre>
+<pre class="r"><code>sin(2 * x)</code></pre>
+<pre><code>## [1] -0.5440211</code></pre>
+<pre class="r"><code>x * 500 / sin(x)</code></pre>
+<pre><code>## [1] -2607.088</code></pre>
+<p>R also has the modulus operator <code>%%</code>, which returns the remainder when <code>x</code> is divided by <code>y</code>. For example:</p>
+<pre class="r"><code>5 %% 2</code></pre>
+<pre><code>## [1] 1</code></pre>
+<div id="exercise-1.1" class="section level3">
+<h3>Exercise 1.1</h3>
+<ul>
+<li>How can you tell when a number is divisible by 3?</li>
+<li>How can you tell when a number is divisible by 10?</li>
+<li>How can you tell when a number is odd?</li>
+</ul>
+</div>
+</div>
+<div id="using-functions" class="section level2">
+<h2>Using functions</h2>
+<p>Every programming language has functions. In R, they look something like:</p>
+<pre class="r"><code>function_name(arg_1 = ..., arg_2 =..., ...)</code></pre>
+<p>For example, the <code>seq</code> function takse a starting number, an ending number, and an interval, and returns a sequence of numbers based on those inputs. For example, to count to 100 by 5:</p>
+<pre class="r"><code>seq(0, 100, 5)</code></pre>
+<pre><code>##  [1]   0   5  10  15  20  25  30  35  40  45  50  55  60  65  70  75  80
+## [18]  85  90  95 100</code></pre>
+<p>And just like before, we can assign this to a variable and do other stuff with it. For example, we can add a scalar to each component:</p>
+<pre class="r"><code>y &lt;- seq(0, 100, 5)
+y + 2</code></pre>
+<pre><code>##  [1]   2   7  12  17  22  27  32  37  42  47  52  57  62  67  72  77  82
+## [18]  87  92  97 102</code></pre>
+<p>We can multiply the sequence by a scalar:</p>
+<pre class="r"><code>y * 4</code></pre>
+<pre><code>##  [1]   0  20  40  60  80 100 120 140 160 180 200 220 240 260 280 300 320
+## [18] 340 360 380 400</code></pre>
+<p>Another function is the <code>length</code> function. We can use it to check the number of objects contained in an object:</p>
+<pre class="r"><code>length(y)</code></pre>
+<pre><code>## [1] 21</code></pre>
+<p>We can do component-wise addition of two scalars:</p>
+<pre class="r"><code>z &lt;- seq(1, 20)
+y + z</code></pre>
+<pre><code>## Warning in y + z: longer object length is not a multiple of shorter object
+## length</code></pre>
+<pre><code>##  [1]   1   7  13  19  25  31  37  43  49  55  61  67  73  79  85  91  97
+## [18] 103 109 115 101</code></pre>
+<div id="exercise-1.2" class="section level3">
+<h3>Exercise 1.2</h3>
+<ul>
+<li>What was the warning we received when we added <code>y</code> and <code>z</code> together? How did R handle it?</li>
+<li>When we made the list of numbers <code>y</code>, we provided a third number to indicate the interval to count by. When we made <code>z</code>, we left that out.</li>
+</ul>
+</div>
+</div>
+<div id="accessing-elements" class="section level2">
+<h2>Accessing elements</h2>
+<p>We can access elements of the sequence we created earlier by using bracket notation. For example, to access the second element of <code>y</code>, we can do:</p>
+<pre class="r"><code>y[2]</code></pre>
+<pre><code>## [1] 5</code></pre>
+<p>To access the first 5 elements, we can do:</p>
+<pre class="r"><code>y[1:5]</code></pre>
+<pre><code>## [1]  0  5 10 15 20</code></pre>
 </div>
 <div id="working-with-data" class="section level2">
 <h2>Working with data</h2>
@@ -492,7 +568,7 @@ div.tocify {
 <p>Alternatively, we can use <code>dim</code>, which returns the number of rows and columns as a pair of numbers:</p>
 <pre class="r"><code>dim(mtcars)</code></pre>
 <pre><code>## [1] 32 11</code></pre>
-<p>We can use matrix notation (in the linear algebra sense) to access particular elements of the data frame. For instance, if I wanted the value in the 5th column of the first row, I could access it like this:</p>
+<p>We can use notation similar to what we used earlier to access particular elements of the data frame. For instance, if I wanted the value in the 5th column of the first row, I could access it like this:</p>
 <pre class="r"><code>mtcars[1, 5]</code></pre>
 <pre><code>## [1] 3.9</code></pre>
 <p>To access the first fives values in the first row, you can do this:</p>
@@ -522,8 +598,8 @@ div.tocify {
 <pre><code>##                 mpg cyl disp hp drat
 ## Toyota Corolla 33.9   4 71.1 65 4.22</code></pre>
 <p>You can also use negative selection to deselect columns and rows. For instance, if we didn’t care about the <code>qsec</code> column, we can do:</p>
-<div id="exercise-1.1" class="section level3">
-<h3>Exercise 1.1</h3>
+<div id="exercise-1.3" class="section level3">
+<h3>Exercise 1.3</h3>
 <ul>
 <li>Use <code>rownames</code> to find out all the different cars that are in the dataset. Print out the rows of these cars.</li>
 </ul>
@@ -629,8 +705,8 @@ div.tocify {
 ## Lotus Europa     4 16.90
 ## Ferrari Dino     6 15.50
 ## Volvo 142E       4 18.60</code></pre>
-<div id="exercise-1.2" class="section level3">
-<h3>Exercise 1.2</h3>
+<div id="exercise-1.4" class="section level3">
+<h3>Exercise 1.4</h3>
 <ul>
 <li>Use the <code>&amp;</code>, the boolean <code>and</code> operator, to subset <code>mtcars</code> by those cars with 6 cylinders and less than 35 miles per gallon.</li>
 </ul>
@@ -659,25 +735,9 @@ div.tocify {
 </div>
 <div id="getting-started-with-the-tidyverse" class="section level2">
 <h2>Getting started with the tidyverse</h2>
-<p>Everything we did up to now was done using base R and was useful in helping you get a grasp of how data frames work. However, we’re now going to start using the tidyverse suite of functions from here out. Let’s revisit what we did earlier in the subsetting section.</p>
-<p>Let’s import the tidyverse functions:</p>
+<p>Everything we did up to now was done using base R and was useful in helping you get a grasp of how data frames work. However, we’re now going to start using the tidyverse suite of functions from here out. If you do some searching online, you’ll find some people with strong opinions about whether or not to use the Tidyverse functions. There are arguments on both sides. For example, On the one hand, Tidyverse functions make certain things a lot easier, like quickly prototyping and editing data analysis pipelines, and it is often easier to read Tidyverse code than base R code. On the other hand, code written using Tidyverse functions are not 100% portable, because your collaborator may not have installed the packages required. We’ll be using the Tidyverse functions when we can, but we will use Base R functionality as required.</p>
+<p>Let’s revisit what we did earlier in the subsetting section. We’ll start by importing the tidyverse functions:</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## Registered S3 methods overwritten by &#39;ggplot2&#39;:
-##   method         from 
-##   [.quosures     rlang
-##   c.quosures     rlang
-##   print.quosures rlang</code></pre>
-<pre><code>## Registered S3 method overwritten by &#39;rvest&#39;:
-##   method            from
-##   read_xml.response xml2</code></pre>
-<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.2.1 --</code></pre>
-<pre><code>## v ggplot2 3.1.1       v purrr   0.3.2  
-## v tibble  2.1.1       v dplyr   0.8.0.1
-## v tidyr   0.8.3       v stringr 1.4.0  
-## v readr   1.3.1       v forcats 0.4.0</code></pre>
-<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
 <p>The first function we will learn about is <code>select</code>. We can use the <code>select</code> function to select variables in a dataframe. For example, to select the number of cylinders and miles per gallon, we can do:</p>
 <pre class="r"><code>select(mtcars, &#39;cyl&#39;, &#39;mpg&#39;)</code></pre>
 <pre><code>##                     cyl  mpg
@@ -868,7 +928,7 @@ div.tocify {
 ## 9  26.0   4 120.3
 ## 10 30.4   4  95.1
 ## 11 21.4   4 121.0</code></pre>
-<p>Note that <code>filter</code> discards rownames. In cases where the rownames are important, you can use the <code>subset</code> function in place of filter:</p>
+<p>Note that <code>filter</code> discards rownames for <code>data.frames</code>. This is because the row names are not themselves a column. We’ll work later with <code>tibbles</code>, which are functionally similar to <code>data.frames</code>, but have a few enhancements to make working with them easier. For now, in cases where the rownames are important, you can use the <code>subset</code> function in place of filter:</p>
 <pre class="r"><code>subset(select(mtcars, &#39;mpg&#39;, &#39;cyl&#39;, &#39;disp&#39;), cyl == 4)</code></pre>
 <pre><code>##                 mpg cyl  disp
 ## Datsun 710     22.8   4 108.0
@@ -883,92 +943,264 @@ div.tocify {
 ## Lotus Europa   30.4   4  95.1
 ## Volvo 142E     21.4   4 121.0</code></pre>
 <p><code>filter</code> and <code>subset</code> are mostly the same and we’ll interchange them as needed in this tutorial. If you’d like to read more about the differences between the two, you can check out this <a href="https://stackoverflow.com/a/39882777/6024276">Stack Overflow post</a>.</p>
-<p>Note that the code above got complicated very quickly. You can imagine that as you do more and more functions on the same line, it gets easier to misplace a parentheses or a quote and it becomes harder to read. To help with this, we will start using <code>%&gt;%</code>, the pipe operator. This operator takes the object on the left and passes it as the input to the function call on the right. Liberal use of <code>%&gt;%</code> and proper formatting will make your code much easier to read and edit as we will soon demonstrate.</p>
+<p>Note that the code above got complicated very quickly. You can imagine that as you do more and more functions on the same line, it gets easier to misplace a parentheses or a quote and it becomes harder to read. To remedy this, you could use intermediate steps, where you save the result of each function call into a new object:</p>
+<pre class="r"><code>mtcars.mpg_cyl_disp &lt;- select(mtcars, &#39;mpg&#39;, &#39;cyl&#39;, &#39;disp&#39;)
+mtcars.mpg_cyl_disp.four_cylinders &lt;- subset(mtcars.mpg_cyl_disp, cyl == 4)</code></pre>
+<p>However, this quickly clutters up your workspace with objects and functions that you don’t necessarily need.</p>
+<p>The solution to this is to start using <code>%&gt;%</code>, the pipe operator. This operator takes the object on the left and passes it as the input to the function call on the right. Liberal use of <code>%&gt;%</code> and proper formatting will make your code much easier to read. For example, the above code can be rewritten with the pipe as:</p>
+<pre class="r"><code>mtcars %&gt;% 
+  select(&#39;mpg&#39;, &#39;cyl&#39;) %&gt;% 
+  subset(cyl == 4)</code></pre>
+<pre><code>##                 mpg cyl
+## Datsun 710     22.8   4
+## Merc 240D      24.4   4
+## Merc 230       22.8   4
+## Fiat 128       32.4   4
+## Honda Civic    30.4   4
+## Toyota Corolla 33.9   4
+## Toyota Corona  21.5   4
+## Fiat X1-9      27.3   4
+## Porsche 914-2  26.0   4
+## Lotus Europa   30.4   4
+## Volvo 142E     21.4   4</code></pre>
+<p>We can immediately see that this is far more readable and easier to edit. For example, we can quickly add an additional <code>subset</code> call to get only those cars with higher than 25 miles-per-gallon:</p>
+<pre class="r"><code>mtcars %&gt;% 
+  select(&#39;mpg&#39;, &#39;cyl&#39;) %&gt;% 
+  subset(cyl == 4) %&gt;% 
+  subset(mpg &gt; 25)</code></pre>
+<pre><code>##                 mpg cyl
+## Fiat 128       32.4   4
+## Honda Civic    30.4   4
+## Toyota Corolla 33.9   4
+## Fiat X1-9      27.3   4
+## Porsche 914-2  26.0   4
+## Lotus Europa   30.4   4</code></pre>
 <p>It’s a bit of a pain to type <code>%&gt;%</code> by hand over and over, so get comfortable with the shortcut command:</p>
 <ul>
 <li>For windows users: <code>control</code> + <code>Shift</code> + <code>m</code></li>
 <li>For Mac users: <code>Cmd</code> + <code>Shift</code> + <code>m</code></li>
 </ul>
 <p>You can find a full list of shortcuts under <code>Tools</code> &gt; <code>Keyboard Shortcuts Help</code> or <a href="https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts">here</a>.</p>
-<p>Let’s start using the pipe. A basic example is:</p>
-<pre class="r"><code>mtcars %&gt;% 
-  select(&#39;mpg&#39;, &#39;cyl&#39;)</code></pre>
-<pre><code>##                      mpg cyl
-## Mazda RX4           21.0   6
-## Mazda RX4 Wag       21.0   6
-## Datsun 710          22.8   4
-## Hornet 4 Drive      21.4   6
-## Hornet Sportabout   18.7   8
-## Valiant             18.1   6
-## Duster 360          14.3   8
-## Merc 240D           24.4   4
-## Merc 230            22.8   4
-## Merc 280            19.2   6
-## Merc 280C           17.8   6
-## Merc 450SE          16.4   8
-## Merc 450SL          17.3   8
-## Merc 450SLC         15.2   8
-## Cadillac Fleetwood  10.4   8
-## Lincoln Continental 10.4   8
-## Chrysler Imperial   14.7   8
-## Fiat 128            32.4   4
-## Honda Civic         30.4   4
-## Toyota Corolla      33.9   4
-## Toyota Corona       21.5   4
-## Dodge Challenger    15.5   8
-## AMC Javelin         15.2   8
-## Camaro Z28          13.3   8
-## Pontiac Firebird    19.2   8
-## Fiat X1-9           27.3   4
-## Porsche 914-2       26.0   4
-## Lotus Europa        30.4   4
-## Ford Pantera L      15.8   8
-## Ferrari Dino        19.7   6
-## Maserati Bora       15.0   8
-## Volvo 142E          21.4   4</code></pre>
-<p>We can then use the pipe to filter these results by those cars with 4 cylinders:</p>
-<pre class="r"><code>mtcars %&gt;% 
-  select(&#39;mpg&#39;, &#39;cyl&#39;) %&gt;% 
-  filter(cyl == 4)</code></pre>
-<pre><code>##     mpg cyl
-## 1  22.8   4
-## 2  24.4   4
-## 3  22.8   4
-## 4  32.4   4
-## 5  30.4   4
-## 6  33.9   4
-## 7  21.5   4
-## 8  27.3   4
-## 9  26.0   4
-## 10 30.4   4
-## 11 21.4   4</code></pre>
-<p>Note that the <code>filter</code> function discards the row names. In cases where rownames are important, you can use the <code>subset</code> function instead of <code>filter</code>:</p>
-<pre class="r"><code>mtcars %&gt;% 
-  select(&#39;mpg&#39;, &#39;cyl&#39;) %&gt;% 
-  filter(cyl == 4)</code></pre>
-<pre><code>##     mpg cyl
-## 1  22.8   4
-## 2  24.4   4
-## 3  22.8   4
-## 4  32.4   4
-## 5  30.4   4
-## 6  33.9   4
-## 7  21.5   4
-## 8  27.3   4
-## 9  26.0   4
-## 10 30.4   4
-## 11 21.4   4</code></pre>
-<p>And we can still use what we learned previously. For example:</p>
+<p>You can still use everything you learned earlier</p>
 <pre class="r"><code>mtcars[c(&quot;Toyota Corolla&quot;, &quot;Honda Civic&quot;, &quot;Datsun 710&quot;), ] %&gt;% 
   select(&quot;mpg&quot;, &quot;cyl&quot;)</code></pre>
 <pre><code>##                 mpg cyl
 ## Toyota Corolla 33.9   4
 ## Honda Civic    30.4   4
 ## Datsun 710     22.8   4</code></pre>
-<div id="exercise-1.1-1" class="section level3">
-<h3>Exercise 1.1</h3>
-<p>Next section: <a href="https://pommevilla.github.io/p3.bootcamp.r.2019/lesson_2.html">ggplot2 basics</a></p>
+<div id="exercise-1.5" class="section level3">
+<h3>Exercise 1.5</h3>
+<p>For this exercise, we’re going to use the data in the <code>nycflights13</code> package. Let’s take a look at the data:</p>
+<pre class="r"><code>library(nycflights13)
+head(flights)</code></pre>
+<pre><code>## # A tibble: 6 x 19
+##    year month   day dep_time sched_dep_time dep_delay arr_time
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+## 1  2013     1     1      517            515         2      830
+## 2  2013     1     1      533            529         4      850
+## 3  2013     1     1      542            540         2      923
+## 4  2013     1     1      544            545        -1     1004
+## 5  2013     1     1      554            600        -6      812
+## 6  2013     1     1      554            558        -4      740
+## # ... with 12 more variables: sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;,
+## #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,
+## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,
+## #   time_hour &lt;dttm&gt;</code></pre>
+<p>Take a few moments to read through the documentation with <code>?flights</code> and do the following tasks:</p>
+<ul>
+<li>How many flights were there on January 1, 2013?</li>
+<li>How many flights were operated by United or Delta?</li>
+<li>How many flights arrived more than two hours late?</li>
+<li>How many flights from JFK departed more than two hours late?</li>
+<li>Read about the <code>arrange</code> function. Use it to find the flights that arrived latest.</li>
+</ul>
 </div>
+</div>
+<div id="adding-new-variables-summarizing-data" class="section level2">
+<h2>Adding new variables, summarizing data:</h2>
+<p>We’re usually interested in summarizing a data set. For example, we might be interested in the means of each of the variables in <code>mtcars</code>. One way to do this is to use the mean function on each of the columns individually:</p>
+<pre class="r"><code>mean(mtcars$mpg)</code></pre>
+<pre><code>## [1] 20.09062</code></pre>
+<pre class="r"><code>#mean(mtcars$cyl)</code></pre>
+<p>Alternatively, we can just use <code>colMeans</code> on the entire data frame at once:</p>
+<pre class="r"><code>colMeans(mtcars)</code></pre>
+<pre><code>##        mpg        cyl       disp         hp       drat         wt 
+##  20.090625   6.187500 230.721875 146.687500   3.596563   3.217250 
+##       qsec         vs         am       gear       carb 
+##  17.848750   0.437500   0.406250   3.687500   2.812500</code></pre>
+<p>Another useful function is <code>summary</code>:</p>
+<pre class="r"><code>summary(mtcars)</code></pre>
+<pre><code>##       mpg             cyl             disp             hp       
+##  Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0  
+##  1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5  
+##  Median :19.20   Median :6.000   Median :196.3   Median :123.0  
+##  Mean   :20.09   Mean   :6.188   Mean   :230.7   Mean   :146.7  
+##  3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0   3rd Qu.:180.0  
+##  Max.   :33.90   Max.   :8.000   Max.   :472.0   Max.   :335.0  
+##       drat             wt             qsec             vs        
+##  Min.   :2.760   Min.   :1.513   Min.   :14.50   Min.   :0.0000  
+##  1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89   1st Qu.:0.0000  
+##  Median :3.695   Median :3.325   Median :17.71   Median :0.0000  
+##  Mean   :3.597   Mean   :3.217   Mean   :17.85   Mean   :0.4375  
+##  3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90   3rd Qu.:1.0000  
+##  Max.   :4.930   Max.   :5.424   Max.   :22.90   Max.   :1.0000  
+##        am              gear            carb      
+##  Min.   :0.0000   Min.   :3.000   Min.   :1.000  
+##  1st Qu.:0.0000   1st Qu.:3.000   1st Qu.:2.000  
+##  Median :0.0000   Median :4.000   Median :2.000  
+##  Mean   :0.4062   Mean   :3.688   Mean   :2.812  
+##  3rd Qu.:1.0000   3rd Qu.:4.000   3rd Qu.:4.000  
+##  Max.   :1.0000   Max.   :5.000   Max.   :8.000</code></pre>
+<p>From here, we can then look at which cars have higher than average mpg:</p>
+<pre class="r"><code>mtcars %&gt;% 
+  subset(mpg &gt; mean(mtcars$mpg)) </code></pre>
+<pre><code>##                 mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710     22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Merc 240D      24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## Merc 230       22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## Fiat 128       32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## Honda Civic    30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## Toyota Corona  21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## Fiat X1-9      27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## Porsche 914-2  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## Lotus Europa   30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## Volvo 142E     21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
+<p>And we can sort them by <code>mpg</code>:</p>
+<pre class="r"><code>mtcars %&gt;% 
+  subset(mpg &gt; mean(mtcars$mpg)) %&gt;% 
+  arrange(mpg)</code></pre>
+<pre><code>##     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## 1  21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## 2  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## 3  21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## 4  21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
+## 5  21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## 6  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## 7  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## 8  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## 9  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## 10 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## 11 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## 12 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## 13 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## 14 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1</code></pre>
+<p>Again, because we’re working with a <code>data.frame</code>, the dplyr functions drop the the row names. To preserve the row names, we can first reorder the <code>data.frame</code> using Base R, then subset it:</p>
+<pre class="r"><code>mtcars[rev(order(mtcars$mpg)), ] %&gt;% 
+  subset(mpg &gt; mean(mtcars$mpg))</code></pre>
+<pre><code>##                 mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## Fiat 128       32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## Lotus Europa   30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## Honda Civic    30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## Fiat X1-9      27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## Porsche 914-2  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## Merc 240D      24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## Merc 230       22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## Datsun 710     22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## Toyota Corona  21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## Volvo 142E     21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
+## Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4</code></pre>
+<p>Let’s suppose that we wanted to get the average <code>mpg</code> of cars by the number of cylinders it has. One way we can do this is to filter by the number of cylinders, select the <code>mpg</code> column, and then take the mean:</p>
+<pre class="r"><code>mtcars %&gt;% 
+  filter(cyl == 4) %&gt;% 
+  select(mpg) %&gt;% 
+  colMeans()</code></pre>
+<pre><code>##      mpg 
+## 26.66364</code></pre>
+<p>We could then repeat this for each of the number of cylinders to get what we need. Howver, this is not scalable, and it relies on you knowing all the different levels of the variable you’re looking at. This is obviously not feasible for larger datasets. To remedy this, we can use the <code>group_by</code> and <code>summarise</code> commands from <code>tidyverse</code>. You pass the variable you would like group the original data by to the <code>group_by</code> function, and from there, we can use the summarise function to get some summary statistics by passing different formulas to the function call. For instance, to get the mean mpg by cylinder count, you can do:</p>
+<pre class="r"><code>mtcars %&gt;% 
+  group_by(cyl) %&gt;% 
+  summarise(mean = mean(mpg))</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##     cyl  mean
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1     4  26.7
+## 2     6  19.7
+## 3     8  15.1</code></pre>
+<p>We can also add a count column:</p>
+<pre class="r"><code>mtcars %&gt;% 
+  group_by(cyl) %&gt;% 
+  summarise(mean = mean(mpg),
+            count = n())</code></pre>
+<pre><code>## # A tibble: 3 x 3
+##     cyl  mean count
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+## 1     4  26.7    11
+## 2     6  19.7     7
+## 3     8  15.1    14</code></pre>
+<p>Note that if we were just interested in the number of observations per group, we can simply use <code>count</code>:</p>
+<pre class="r"><code>mtcars %&gt;% 
+  group_by(cyl) %&gt;% 
+  count()</code></pre>
+<pre><code>## # A tibble: 3 x 2
+## # Groups:   cyl [3]
+##     cyl     n
+##   &lt;dbl&gt; &lt;int&gt;
+## 1     4    11
+## 2     6     7
+## 3     8    14</code></pre>
+<div id="exercise-1.6" class="section level3">
+<h3>Exercise 1.6</h3>
+<p>For the <code>mtcars</code> dataset:</p>
+<ul>
+<li>What is the average horsepower, weight, and displacement by cylinder count?</li>
+<li>How many cars are there with automatic transmission?</li>
+<li>What is the count of cars by gear count?</li>
+<li>What is the breakdown of car count by transmission type *and** gear count? Hint: you can group by more than one variable at a time. Notice anything interesting?</li>
+</ul>
+<p>For the <code>flights</code> dataset:</p>
+<ul>
+<li>Which carrier had the most flights that departed later than two hours?</li>
+<li>which carrier had the most early arrivals by more than 15 minute?</li>
+<li>which destination airport had the most arrivals later than 30 minutes?</li>
+</ul>
+</div>
+</div>
+<div id="adding-new-variables-with-mutate" class="section level2">
+<h2>Adding new variables with mutate</h2>
+<p>The <code>mutate</code> function lets us add new variables to a data object by specifying a formula. For instance, to add a new column to <code>mtcars</code> showing the weight of the car in pounds (instead of thousands of pounds), we can do:</p>
+<pre class="r"><code>mtcars %&gt;% 
+  mutate(weight_in_pounds = 1000 * wt)</code></pre>
+<pre><code>##     mpg cyl  disp  hp drat    wt  qsec vs am gear carb weight_in_pounds
+## 1  21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4             2620
+## 2  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4             2875
+## 3  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1             2320
+## 4  21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1             3215
+## 5  18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2             3440
+## 6  18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1             3460
+## 7  14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4             3570
+## 8  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2             3190
+## 9  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2             3150
+## 10 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4             3440
+## 11 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4             3440
+## 12 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3             4070
+## 13 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3             3730
+## 14 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3             3780
+## 15 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4             5250
+## 16 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4             5424
+## 17 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4             5345
+## 18 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1             2200
+## 19 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2             1615
+## 20 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1             1835
+## 21 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1             2465
+## 22 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2             3520
+## 23 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2             3435
+## 24 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4             3840
+## 25 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2             3845
+## 26 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1             1935
+## 27 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2             2140
+## 28 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2             1513
+## 29 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4             3170
+## 30 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6             2770
+## 31 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8             3570
+## 32 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2             2780</code></pre>
+<p>Next section: <a href="https://pommevilla.github.io/p3.bootcamp.r.2019/lesson_2.html">ggplot2 basics</a></p>
 </div>
 
 <p><br>

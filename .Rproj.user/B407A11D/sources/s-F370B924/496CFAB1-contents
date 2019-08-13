@@ -1,5 +1,5 @@
 ---
-title: "Lesson 1: R Basics"
+title: "Lesson 1: Getting started"
 output: html_document
 ---
 
@@ -7,10 +7,116 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
-## Doing math
+
+
+## Basic arithmetic, assignment 
+
+The normal mathematic operators work in R, and they follow the order of operations:
 
 ```{r}
+1 / 20 * 30
+```
 
+You can use parentheses to change the order in which the expressions are calculated:
+
+```{r}
+1 / (20 * 30)
+```
+
+```{r}
+cos(2 * pi)
+```
+
+You can assign values to objects with `<-`, the assignment operator. The shortcut for this is:
+
+* For Windows Users, `Alt` + `-`
+* For Mac Users, `Cmd` + `-`
+
+After assignment, we can perform whatever operations we would like with that variable:
+
+```{r}
+x <- 5
+x + 5
+```
+
+```{r}
+sin(2 * x)
+```
+
+```{r}
+x * 500 / sin(x)
+```
+
+R also has the modulus operator `%%`, which returns the remainder when `x` is divided by `y`. For example:
+
+```{r}
+5 %% 2
+```
+
+
+### Exercise 1.1
+
+* How can you tell when a number is divisible by 3?
+* How can you tell when a number is divisible by 10?
+* How can you tell when a number is odd?
+
+## Using functions
+
+Every programming language has functions. In R, they look something like:
+
+```{r, eval = FALSE}
+function_name(arg_1 = ..., arg_2 =..., ...)
+```
+
+For example, the `seq` function takse a starting number, an ending number, and an interval, and returns a sequence of numbers based on those inputs. For example, to count to 100 by 5:
+
+```{r}
+seq(0, 100, 5)
+```
+
+And just like before, we can assign this to a variable and do other stuff with it. For example, we can add a scalar to each component:
+
+```{r}
+y <- seq(0, 100, 5)
+y + 2
+```
+
+We can multiply the sequence by a scalar:
+
+```{r}
+y * 4
+```
+
+Another function is the `length` function. We can use it to check the number of objects contained in an object:
+
+```{r}
+length(y)
+```
+
+We can do component-wise addition of two scalars:
+
+```{r}
+z <- seq(1, 20)
+y + z
+```
+
+### Exercise 1.2
+
+* What was the warning we received when we added `y` and `z` together? How did R handle it?
+* When we made the list of numbers `y`, we provided a third number to indicate the interval to count by. When we made `z`, we left that out.
+
+## Accessing elements 
+
+We can access elements of the sequence we created earlier by using bracket notation. For example, to access the second element of `y`, we can do:
+
+```{r}
+y[2]
+```
+
+To access the first 5 elements, we can do:
+
+```{r}
+y[1:5]
 ```
 
 
@@ -58,7 +164,7 @@ Alternatively, we can use `dim`, which returns the number of rows and columns as
 dim(mtcars)
 ```
 
-We can use matrix notation (in the linear algebra sense) to access particular elements of the data frame. For instance, if I wanted the value in the 5th column of the first row, I could access it like this:
+We can use notation similar to what we used earlier to access particular elements of the data frame. For instance, if I wanted the value in the 5th column of the first row, I could access it like this:
 
 ```{r}
 mtcars[1, 5]
@@ -100,7 +206,7 @@ mtcars["Toyota Corolla", 1:5]
 
 You can also use negative selection to deselect columns and rows. For instance, if we didn't care about the `qsec` column, we can do:
 
-### Exercise 1.1
+### Exercise 1.3
 
 * Use `rownames` to find out all the different cars that are in the dataset. Print out the rows of these cars.
 
@@ -149,7 +255,7 @@ And we can combine it with our indexing from earlier to look at the number of cy
 mtcars[mtcars$cyl == 4 | mtcars$cyl == 6, c("cyl", "qsec")]
 ```
 
-### Exercise 1.2
+### Exercise 1.4
 
 * Use the `&`, the boolean `and` operator, to subset `mtcars` by those cars with 6 cylinders and less than 35 miles per gallon.
 
@@ -166,9 +272,9 @@ mtcars[mtcars$cyl == 6 & mtcars$mpg < 35, ]
 
 ## Getting started with the tidyverse
 
-Everything we did up to now was done using base R and was useful in helping you get a grasp of how data frames work. However, we're now going to start using the tidyverse suite of functions from here out. Let's revisit what we did earlier in the subsetting section.
+Everything we did up to now was done using base R and was useful in helping you get a grasp of how data frames work. However, we're now going to start using the tidyverse suite of functions from here out. If you do some searching online, you'll find some people with strong opinions about whether or not to use the Tidyverse functions. There are arguments on both sides. For example, On the one hand, Tidyverse functions make certain things a lot easier, like quickly prototyping and editing data analysis pipelines, and it is often easier to read Tidyverse code than base R code. On the other hand, code written using Tidyverse functions are not 100% portable, because your collaborator may not have installed the packages required. We'll be using the Tidyverse functions when we can, but we will use Base R functionality as required.
 
-Let's import the tidyverse functions:
+Let's revisit what we did earlier in the subsetting section. We'll start by importing the tidyverse functions:
 
 ```{r}
 library(tidyverse)
@@ -217,7 +323,7 @@ We can also combine the functions. For example, to see the miles per gallon, dis
 filter(select(mtcars, 'mpg', 'cyl', 'disp'), cyl == 4)
 ```
 
-Note that `filter` discards rownames. In cases where the rownames are important, you can use the `subset` function in place of filter:
+Note that `filter` discards rownames for `data.frames`. This is because the row names are not themselves a column. We'll work later with `tibbles`, which are functionally similar to `data.frames`, but have a few enhancements to make working with them easier. For now, in cases where the rownames are important, you can use the `subset` function in place of filter:
 
 ```{r}
 subset(select(mtcars, 'mpg', 'cyl', 'disp'), cyl == 4)
@@ -225,8 +331,31 @@ subset(select(mtcars, 'mpg', 'cyl', 'disp'), cyl == 4)
 
 `filter` and `subset` are mostly the same and we'll interchange them as needed in this tutorial. If you'd like to read more about the differences between the two, you can check out this [Stack Overflow post](https://stackoverflow.com/a/39882777/6024276).
 
+Note that the code above got complicated very quickly. You can imagine that as you do more and more functions on the same line, it gets easier to misplace a parentheses or a quote and it becomes harder to read. To remedy this, you could use intermediate steps, where you save the result of each function call into a new object:
 
-Note that the code above got complicated very quickly. You can imagine that as you do more and more functions on the same line, it gets easier to misplace a parentheses or a quote and it becomes harder to read. To help with this, we will start using `%>%`, the pipe operator. This operator takes the object on the left and passes it as the input to the function call on the right. Liberal use of `%>%` and proper formatting will make your code much easier to read and edit as we will soon demonstrate. 
+```{r}
+mtcars.mpg_cyl_disp <- select(mtcars, 'mpg', 'cyl', 'disp')
+mtcars.mpg_cyl_disp.four_cylinders <- subset(mtcars.mpg_cyl_disp, cyl == 4)
+```
+
+However, this quickly clutters up your workspace with objects and functions that you don't necessarily need.
+
+The solution to this is to start using `%>%`, the pipe operator. This operator takes the object on the left and passes it as the input to the function call on the right. Liberal use of `%>%` and proper formatting will make your code much easier to read. For example, the above code can be rewritten with the pipe as:
+
+```{r}
+mtcars %>% 
+  select('mpg', 'cyl') %>% 
+  subset(cyl == 4)
+```
+
+We can immediately see that this is far more readable and easier to edit. For example, we can quickly add an additional `subset` call to get only those cars with higher than 25 miles-per-gallon:
+
+```{r}
+mtcars %>% 
+  select('mpg', 'cyl') %>% 
+  subset(cyl == 4) %>% 
+  subset(mpg > 25)
+```
 
 It's a bit of a pain to type `%>%` by hand over and over, so get comfortable with the shortcut command:
 
@@ -235,37 +364,136 @@ It's a bit of a pain to type `%>%` by hand over and over, so get comfortable wit
 
 You can find a full list of shortcuts under `Tools` > `Keyboard Shortcuts Help` or [here](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts).
 
-Let's start using the pipe. A basic example is:
-
-```{r}
-mtcars %>% 
-  select('mpg', 'cyl')
-```
-
-We can then use the pipe to filter these results by those cars with 4 cylinders:
-
-```{r}
-mtcars %>% 
-  select('mpg', 'cyl') %>% 
-  filter(cyl == 4)
-```
-
-Note that the `filter` function discards the row names. In cases where rownames are important, you can use the `subset` function instead of `filter`:
-
-```{r}
-mtcars %>% 
-  select('mpg', 'cyl') %>% 
-  filter(cyl == 4)
-```
-
-And we can still use what we learned previously. For example:
+You can still use everything you learned earlier 
 
 ```{r}
 mtcars[c("Toyota Corolla", "Honda Civic", "Datsun 710"), ] %>% 
   select("mpg", "cyl")
 ```
 
-### Exercise 1.1
+
+
+### Exercise 1.5
+
+For this exercise, we're going to use the data in the `nycflights13` package. Let's take a look at the data:
+
+```{r}
+library(nycflights13)
+head(flights)
+```
+
+Take a few moments to read through the documentation with `?flights` and do the following tasks:
+
+* How many flights were there on January 1, 2013?
+* How many flights were operated by United or Delta?
+* How many flights arrived more than two hours late?
+* How many flights from JFK departed more than two hours late?
+* Read about the `arrange` function. Use it to find the flights that arrived latest.
+
+## Adding new variables, summarizing data:
+
+We're usually interested in summarizing a data set. For example, we might be interested in the means of each of the variables in `mtcars`. One way to do this is to use the mean function on each of the columns individually:
+
+```{r}
+mean(mtcars$mpg)
+#mean(mtcars$cyl)
+```
+
+Alternatively, we can just use `colMeans` on the entire data frame at once:
+
+```{r}
+colMeans(mtcars)
+```
+
+Another useful function is `summary`:
+
+```{r}
+summary(mtcars)
+```
+
+
+From here, we can then look at which cars have higher than average mpg:
+
+```{r}
+mtcars %>% 
+  subset(mpg > mean(mtcars$mpg)) 
+```
+
+And we can sort them by `mpg`:
+
+```{r}
+mtcars %>% 
+  subset(mpg > mean(mtcars$mpg)) %>% 
+  arrange(mpg)
+```
+
+Again, because we're working with a `data.frame`, the dplyr functions drop the the row names. To preserve the row names, we can first reorder the `data.frame` using Base R, then subset it:
+
+```{r}
+mtcars[rev(order(mtcars$mpg)), ] %>% 
+  subset(mpg > mean(mtcars$mpg))
+```
+
+Let's suppose that we wanted to get the average `mpg` of cars by the number of cylinders it has. One way we can do this is to filter by the number of cylinders, select the `mpg` column, and then take the mean:
+
+```{r}
+mtcars %>% 
+  filter(cyl == 4) %>% 
+  select(mpg) %>% 
+  colMeans()
+```
+
+We could then repeat this for each of the number of cylinders to get what we need. Howver, this is not scalable, and it relies on you knowing all the different levels of the variable you're looking at. This is obviously not feasible for larger datasets. To remedy this, we can use the `group_by` and `summarise` commands from `tidyverse`. You pass the variable you would like group the original data by to the `group_by` function, and from there, we can use the summarise function to get some summary statistics by passing different formulas to the function call. For instance, to get the mean mpg by cylinder count, you can do:
+
+```{r}
+mtcars %>% 
+  group_by(cyl) %>% 
+  summarise(mean = mean(mpg))
+```
+
+We can also add a count column:
+
+```{r}
+mtcars %>% 
+  group_by(cyl) %>% 
+  summarise(mean = mean(mpg),
+            count = n())
+```
+
+Note that if we were just interested in the number of observations per group, we can simply use `count`:
+
+```{r}
+mtcars %>% 
+  group_by(cyl) %>% 
+  count()
+```
+
+
+### Exercise 1.6
+
+For the `mtcars` dataset:
+
+* What is the average horsepower, weight, and displacement by cylinder count?
+* How many cars are there with automatic transmission? 
+* What is the count of cars by gear count?
+* What is the breakdown of car count by transmission type *and** gear count? Hint: you can group by more than one variable at a time. Notice anything interesting?
+
+For the `flights` dataset:
+
+* Which carrier had the most flights that departed later than two hours?
+* which carrier had the most early arrivals by more than 15 minute?
+* which destination airport had the most arrivals later than 30 minutes?
+
+## Adding new variables with mutate
+
+The `mutate` function lets us add new variables to a data object by specifying a formula. For instance, to add a new column to `mtcars` showing the weight of the car in pounds (instead of thousands of pounds), we can do:
+
+```{r}
+mtcars %>% 
+  mutate(weight_in_pounds = 1000 * wt)
+```
+
+
 
 Next section: [ggplot2 basics](https://pommevilla.github.io/p3.bootcamp.r.2019/lesson_2.html)
 

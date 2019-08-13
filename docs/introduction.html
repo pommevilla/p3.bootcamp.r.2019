@@ -434,7 +434,7 @@ div.tocify {
 </ul>
 <p>You’ll need to install the following packages to do this workshop: ggplot2, tidyverse, Rmarkdown, and reshape2.</p>
 <p>Copy and paste the following lines of code into your R console to download them all at once.</p>
-<pre class="r"><code>reqs &lt;- c(&quot;tidyverse&quot;, &quot;reshape2&quot;, &quot;rmarkdown&quot;)
+<pre class="r"><code>reqs &lt;- c(&quot;tidyverse&quot;, &quot;rmarkdown&quot;, &quot;nycflights13&quot;)
 missing_packages &lt;- reqs[!(reqs %in% installed.packages()[, &quot;Package&quot;])]
 if(length(new.packages)) {
   install.packages(missing_packages)

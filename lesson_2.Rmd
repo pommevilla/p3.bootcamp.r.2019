@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 R has a native function for plotting, but we're going to start learning about `ggplot`. `ggplot` offers more control and more    
 
 
-Hadley Wickham, badass motherfucker, said in [A Layered Grammar of Graphics](https://vita.had.co.nz/papers/layered-grammar.pdf):
+Hadley Wickham, chief scientist at RStudio (and ISU alum!), said in [A Layered Grammar of Graphics](https://vita.had.co.nz/papers/layered-grammar.pdf):
 
 > A grammar of graphics is a tool that enables us to concisely describe the components of a graphic. 
 
