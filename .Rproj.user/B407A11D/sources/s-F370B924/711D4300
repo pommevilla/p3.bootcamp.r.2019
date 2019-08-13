@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1565670573393.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "37632782",
+    "id" : "711D4300",
+    "lastKnownWriteTime" : 1565669791,
+    "last_content_update" : 1565669791,
+    "path" : "C:/Users/pvill/repos/p3.bootcamp.r.2019/lesson_3.Rmd",
+    "project_path" : "lesson_3.Rmd",
+    "properties" : {
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

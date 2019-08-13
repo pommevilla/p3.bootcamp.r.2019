@@ -1,0 +1,17 @@
+---
+title: "Lesson 3: Exploratory data analysis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(reshape2)
+library(tidyverse)
+```
+
+## Lesson 3: Getting started with ggplot2
+

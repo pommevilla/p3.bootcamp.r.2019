@@ -1,0 +1,51 @@
+---
+title: "Introduction"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# P3 Programming Bootcamp: Introduction to R
+
+## Introduction
+
+### About this workshop
+
+This workshop is broken up into 5 parts:
+
+* [R Basics](later)
+* [ggplot2 basics](later)
+* [Exploratory data analysis](later)
+* [Next steps](later)
+
+You'll need to install the following packages to do this workshop: ggplot2, tidyverse, Rmarkdown, and reshape2. 
+
+Copy and paste the following lines of code into your R console to download them all at once.
+
+```{r}
+reqs <- c("tidyverse", "reshape2", "rmarkdown")
+missing_packages <- reqs[!(reqs %in% installed.packages()[, "Package"])]
+if(length(new.packages)) {
+  install.packages(missing_packages)
+}
+```
+
+### Why R?
+
+Good for stats
+Most commonly used by students in the biologies
+Visualizations are great
+Rmarkdown is nice
+
+
+
+
+[p3-landing]: https://www.predictivephenomicsinplants.iastate.edu/
+[intro-to-r]: https://github.com/pommevilla/p3.bootcamp.r.2019
+[intro-to-python]: https://github.com/pommevilla/p3.bootcamp.python.2019
+[paul-github]: https://github.com/pommevilla
+[intro-to-unix]: https://github.com/skDooley/shell_tutorial
+[shane-github]: https://github.com/skDooley
+[data-1]: https://github.com/pommevilla/p3.bootcamp.da1.2019

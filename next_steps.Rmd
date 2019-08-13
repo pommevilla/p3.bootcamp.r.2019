@@ -1,0 +1,37 @@
+---
+title: "Next steps"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(reshape2)
+library(tidyverse)
+```
+
+## Learning the Language
+
+The content in today's workshop was in no way intended to give
+
+* I highly recommend [R for Data Science](https://r4ds.had.co.nz/) by Hadley Wickham and Garret Grolemund. It's an excellent first book to learn the language and to get a good workflow for data analysis.
+
+## Visualization
+
+One of the most powerful features of R is the ability to make publication-worthy graphics with a high-degree of customization. Here are some more resources for you to improve in this area:
+
+* [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday) is a project run by the R for Data Science team. Every Tuesday, a new, tidied data set is posted for people to practice their data visualization skills on.
+* David Robinson, a data scientist, posts his take on Tidy Tuesday datasets on his [YouTube channel](https://www.youtube.com/channel/UCeiiqmVK07qhY-wvg3IZiZQ). These videos are incredibly informative and 
+
+## Subject-focused work
+
+* David Robinson also wrote an excellent book teaching Bayesian statistics using R. The book, called [Introduction to Empirical Bayes](http://varianceexplained.org/r/empirical_bayes_baseball/), walks you through the very basics of Bayesian statistics and simulation up to creating sophisticated prediction models. Robinson also provides all the code in the book so you can follow along. The book is published under the name-your-own-price model, so you can download the book for free; however, it is absolutely worth the suggested price of $10.
+* [Numerical Ecology with R](https://www.amazon.com/Numerical-Ecology-R-Use/dp/1441979751) is another pretty good book.
+
+
+## Help
+
+* [Stack Overflow](https://stackoverflow.com/) is usually the first site people check out when they're looking for help with a programming question. Make sure to search the site first before you ask your question - chances are it's already been answered.

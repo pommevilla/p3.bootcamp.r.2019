@@ -1,0 +1,272 @@
+---
+title: "Lesson 1: R Basics"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+```
+
+# P3 Programming Bootcamp: Introduction to R
+
+## Lesson 1: R Basics
+
+### Doing math
+
+```{r}
+
+```
+
+
+### Working with data 
+
+Most of the time you're working with R, you'll be manipulating some data that was given to you, like expression data, an OTU abundance table, or yield data. The most common form of data is some sort of rectangular container, such as a data frame, a table, a tibble, a matrix, etc. While there are some differences between all of them, they all function similarly. Note that we're going to begin our investigation using Base R functionality before we move on to using `tidyverse` (specifically, `dplyr`) functions.
+
+We're going to begin learning how to manipulate data by using `mtcars`, a dataset that comes packaged with R.
+
+Let's learn more about the `mtcars` dataset:
+
+```{r, eval = FALSE}
+?mtcars
+```
+
+So there's information about a few different cars here. Let's take a look at the data:
+
+```{r}
+mtcars
+```
+
+Most times, datasets are too large to be printed out to the whole screen at once and we just want to get a look at some of the data to get a feel for it. We can use `head` or `tail` to look at the first or last few rows of a dataset, respectively:
+
+```{r}
+head(mtcars)
+```
+
+```{r}
+tail(mtcars)
+```
+
+We can check how many rows and columns there are by doing nrows and nols:
+
+```{r}
+nrow(mtcars)
+```
+
+```{r}
+ncol(mtcars)
+```
+
+Alternatively, we can use `dim`, which returns the number of rows and columns as a pair of numbers:
+
+```{r}
+dim(mtcars)
+```
+
+We can use matrix notation (in the linear algebra sense) to access particular elements of the data frame. For instance, if I wanted the value in the 5th column of the first row, I could access it like this:
+
+```{r}
+mtcars[1, 5]
+```
+
+To access the first fives values in the first row, you can do this:
+
+```{r}
+mtcars[1, 1:5]
+```
+
+And to get the whole row, you can leave the second argument empty:
+
+```{r}
+mtcars[1, ]
+```
+
+Alternatively, you can access columns by their name by putting the name in quotes:
+
+```{r}
+mtcars[1, 'cyl']
+```
+
+To access multiple column names in this way, you need to *combine* (or *concatenate*) them together with the `c` function:
+
+```{r}
+mtcars[1, c('mpg', 'cyl', 'disp')]
+```
+
+You can do the same kind of syntax to access the rows of the data frame:
+
+```{r}
+mtcars[1:5, 1:5]
+```
+
+```{r}
+mtcars["Toyota Corolla", 1:5]
+```
+
+You can also use negative selection to deselect columns and rows. For instance, if we didn't care about the `qsec` column, we can do:
+
+#### Exercise 1.1
+
+* Use `rownames` to find out all the different cars that are in the dataset. Print out the rows of these cars.
+
+```{r}
+mtcars[c("Toyota Corolla", "Honda Civic", "Datsun 710"), ]
+```
+
+
+* Print out the number of cylinders, quarter-mile time, number of carburetors, and whether or not the engine is v-shaped for the cars you chose above. See the documentation for `?mtcars` to figure out which columns have that information. 
+
+```{r}
+mtcars[c("Toyota Corolla", "Honda Civic", "Datsun 710"), c("cyl", "qsec", "carb", "vs")]
+```
+
+
+### Subsetting data based on conditions
+
+Let's say we're interested in cars with 4 cylinders. The following statement returns a vector of `TRUE` and `FALSE` indicating the rows in which the statement `cylinders equals 4` is true.
+
+```{r}
+mtcars$cyl == 4
+```
+
+We can then use this vector to subset `mtcars` so that it shows only the cars with 4 cylinders:
+
+```{r}
+mtcars[mtcars$cyl == 4, ]
+```
+
+similarly, we can use this to look at cars that have more than 4 cylinders:
+
+```{r}
+mtcars[mtcars$cyl > 4, ]
+```
+
+
+We can use `|`, the boolean `or` operator, to look at cars that are 4 or 6 cylinders:
+
+```{r}
+mtcars[mtcars$cyl == 4 | mtcars$cyl == 6, ]
+```
+
+And we can combine it with our indexing from earlier to look at the number of cylinders and quarter-mile speed for each of these cars:
+
+```{r}
+mtcars[mtcars$cyl == 4 | mtcars$cyl == 6, c("cyl", "qsec")]
+```
+
+#### Exercise 1.2
+
+* Use the `&`, the boolean `and` operator, to subset `mtcars` by those cars with 6 cylinders and less than 35 miles per gallon.
+
+```{r}
+mtcars[mtcars$cyl == 6 & mtcars$mpg < 35, ]
+```
+
+* Use the `arrange` function 
+
+```{r}
+mtcars[mtcars$cyl == 6 & mtcars$mpg < 35, ]
+```
+
+
+### Getting started with the tidyverse
+
+Everything we did up to now was done using base R and was useful in helping you get a grasp of how data frames work. However, we're now going to start using the tidyverse suite of functions from here out. Let's revisit what we did earlier in the subsetting section.
+
+Let's import the tidyverse functions:
+
+```{r}
+library(tidyverse)
+```
+
+The first function we will learn about is `select`. We can use the `select` function to select variables in a dataframe. For example, to select the number of cylinders and miles per gallon, we can do:
+
+```{r}
+select(mtcars, 'cyl', 'mpg')
+```
+
+We can also use `select` to *deselect* certain variables; when used in this way, `select` will return all the columns except for the variables indicated. For example, if we aren't interested in miles per gallon, number of cylinders, or displacement, we can do:
+
+```{r}
+select(mtcars, -"mpg", -"cyl", -"disp")
+```
+
+You can even do something like this:
+
+```{r}
+select(mtcars, contains("p"))
+```
+
+You can still use column numbers in the `select` function:
+
+```{r}
+select(mtcars, 1:3)
+```
+
+
+The next function we're going to learn about is the `filter` function. This function subsets the data by certain conditions. To use the `filter` function to select cars with 4 cylinders, we would do:
+
+```{r}
+filter(mtcars, cyl == 4)
+```
+
+We can combine conditions just like before:
+
+```{r}
+filter(mtcars, (cyl == 4 | cyl == 8) & mpg < 25)
+```
+
+We can also combine the functions. For example, to see the miles per gallon, displacement force, and number of cylinders for all the cars with four cylinders, we can do:
+
+```{r}
+filter(select(mtcars, 'mpg', 'cyl', 'disp'), cyl == 4)
+```
+
+Note that `filter` discards rownames. In cases where the rownames are important, you can use the `subset` function in place of filter:
+
+```{r}
+subset(select(mtcars, 'mpg', 'cyl', 'disp'), cyl == 4)
+```
+
+`filter` and `subset` are mostly the same and we'll interchange them as needed in this tutorial. If you'd like to read more about the differences between the two, you can check out this [Stack Overflow post](https://stackoverflow.com/a/39882777/6024276).
+
+
+Note that the code above got complicated very quickly. You can imagine that as you do more and more functions on the same line, it gets easier to misplace a parentheses or a quote and it becomes harder to read. To help with this, we will start using `%>%`, the pipe operator. This operator takes the object on the left and passes it as the input to the function call on the right. Liberal use of `%>%` and proper formatting will make your code much easier to read and edit as we will soon demonstrate. 
+
+It's a bit of a pain to type `%>%` by hand over and over, so get comfortable with the shortcut command:
+
+* For windows users: `control` + `Shift` + `m`
+* For Mac users: `Cmd` + `Shift` + `m`
+
+You can find a full list of shortcuts under `Tools` > `Keyboard Shortcuts Help` or [here](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts).
+
+Let's start using the pipe. A basic example is:
+
+```{r}
+mtcars %>% 
+  select('mpg', 'cyl')
+```
+
+We can then use the pipe to filter these results by those cars with 4 cylinders:
+
+```{r}
+mtcars %>% 
+  select('mpg', 'cyl') %>% 
+  filter(cyl == 4)
+```
+
+Note that the `filter` function discards the row names. In cases where rownames are important, you can use the `subset` function instead of `filter`:
+
+```{r}
+mtcars %>% 
+  select('mpg', 'cyl') %>% 
+  filter(cyl == 4)
+```
+
+And we can still use what we learned previously. For example:
+
+```{r}
+mtcars[c("Toyota Corolla", "Honda Civic", "Datsun 710"), ] %>% 
+  select("mpg", "cyl")
+```
+
+#### 
