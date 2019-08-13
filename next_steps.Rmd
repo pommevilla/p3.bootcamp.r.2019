@@ -7,23 +7,17 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
-```{r}
-library(ggplot2)
-library(reshape2)
-library(tidyverse)
-```
+Below are some resources for you to continue your learning.
 
 ## Learning the Language
 
-The content in today's workshop was in no way intended to give
-
-* I highly recommend [R for Data Science](https://r4ds.had.co.nz/) by Hadley Wickham and Garret Grolemund. It's an excellent first book to learn the language and to get a good workflow for data analysis.
+The content in today's workshop was intended to give you an overview of what is possible with R. The best way to learn is to tackle a problem that you're personally interested in using R. Besides that, I recommend the [R for Data Science](https://r4ds.had.co.nz/) book by Hadley Wickham and Garret Grolemund. It's an excellent first book to learn the language and to get a good workflow for data analysis.
 
 ## Visualization
 
 One of the most powerful features of R is the ability to make publication-worthy graphics with a high-degree of customization. Here are some more resources for you to improve in this area:
 
-* [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday) is a project run by the R for Data Science team. Every Tuesday, a new, tidied data set is posted for people to practice their data visualization skills on.
+* [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday) is a project run by the R for Data Science team. Every Tuesday, a new, tidied data set is posted for people to practice their data visualization skills on. You can view people's submissions by looking through the [#tidytuesday hashtag](https://twitter.com/hashtag/tidytuesday?lang=en) on Twitter.
 * David Robinson, a data scientist, posts his take on Tidy Tuesday datasets on his [YouTube channel](https://www.youtube.com/channel/UCeiiqmVK07qhY-wvg3IZiZQ). These videos are incredibly informative and 
 
 ## Subject-focused work

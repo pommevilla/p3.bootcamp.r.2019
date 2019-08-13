@@ -2,18 +2,18 @@
     "collab_server" : "",
     "contents" : "",
     "created" : 1565670464060.000,
-    "dirty" : true,
+    "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "3094218616",
+    "hash" : "643718560",
     "id" : "171EFC6B",
-    "lastKnownWriteTime" : 1565670598,
-    "last_content_update" : 1565670598,
+    "lastKnownWriteTime" : 1565674158,
+    "last_content_update" : 1565674158374,
     "path" : "C:/Users/pvill/repos/p3.bootcamp.r.2019/next_steps.Rmd",
     "project_path" : "next_steps.Rmd",
     "properties" : {
-        "cursorPosition" : "8,0",
-        "scrollLine" : "0"
+        "cursorPosition" : "19,348",
+        "scrollLine" : "8"
     },
     "read_only" : false,
     "read_only_alternatives" : [
